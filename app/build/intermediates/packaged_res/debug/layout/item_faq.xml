@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+                                                       
+                                                   
+
+    
+                                           
+                 
+                       
+                                                         
+                 
+                          
+                                                             
+                 
+                           
+                             
+           
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="8dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="0dp"
+        android:background="@android:color/white" android:tag="layout/item_faq_0" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+        <!-- Question container -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Question row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="16dp"
+                android:tag="binding_1"                                         
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:tag="binding_2"        
+                    android:textSize="16sp"
+                    android:textStyle="normal"
+                    android:textColor="@android:color/black"
+                    android:lineSpacingExtra="4dp"
+                    tools:text="Làm thế nào để tôi nhập một khoản thu nhập mới vào ứng dụng?" />
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="16dp"
+                    android:tag="binding_3"                                                    
+                    android:contentDescription="Toggle FAQ answer"
+                                                                     
+                    tools:src="@drawable/ic_downer" />
+
+            </LinearLayout>
+
+            <!-- Answer section -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="24dp"
+                android:paddingBottom="16dp"
+                android:tag="binding_4"      
+                android:textSize="14sp"
+                android:textColor="@color/xam"
+                android:lineSpacingExtra="6dp"
+                                                                                  
+                android:background="#F5F5F5"
+                tools:text="Bước 1: Từ giao diện chính, chuyển sang Tab Khoản thu.\nBước 2: Nhấn vào nút Thêm mới (thường là biểu tượng dấu +).\nBước 3: Nhập các thông tin: số tiền thu, chọn danh mục thu (ví dụ: Lương, Bán hàng, Thu nhập khác), ngày nhận tiền, và có thể thêm ghi chú chi tiết.\nBước 4: Nhấn Lưu để ghi lại khoản thu."
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+          

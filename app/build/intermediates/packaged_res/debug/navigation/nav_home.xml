@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main_app"
+    app:startDestination="@id/frag_home">
+    <fragment
+        android:id="@+id/frag_calendar"
+        android:name="com.qltc.finace.view.main.calendar.CalendarFragment">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frag_report"
+        android:name="com.qltc.finace.view.main.report.FragmentReport">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frag_profile"
+        android:name="com.qltc.finace.view.main.profile.FragmentProfile"
+        android:label="FragmentProfile">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frag_enter"
+        android:name="com.qltc.finace.view.main.enter.FragmentEnter">
+        <argument
+            android:name="selected_tab"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_notebook"
+        android:name="com.qltc.finace.view.main.webview.FragmentWebView"
+        android:label="NotebookLM">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_category_detail"
+        android:name="com.qltc.finace.view.main.enter.category.FragmentCategoryDetail">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_add_category"
+        android:name="com.qltc.finace.view.main.enter.add_category.FragmentAddCategory">
+
+    </fragment>
+    <fragment
+        android:id="@+id/frg_edit_i_e"
+        android:name="com.qltc.finace.view.edit_expense_income.FragmentEditExpenseIncome"/>
+
+    <fragment
+        android:id="@+id/frg_list_data"
+        android:name="com.qltc.finace.view.main.list_data_form_category.FragmentListData"/>
+    <fragment
+        android:id="@+id/frg_all_income_expense"
+        android:name="com.qltc.finace.view.main.all_expense_income.AllIncomeExpenseFragment"/>
+    <fragment
+        android:id="@+id/frg_export_pdf"
+        android:name="com.qltc.finace.view.main.export.FragmentExportPdfConfig"/>
+    <fragment
+        android:id="@+id/frag_help"
+        android:name="com.qltc.finace.view.main.helper.FragmentHelper"
+        android:label="FragmentHelper" />
+    <fragment
+        android:id="@+id/frag_FAQ"
+        android:name="com.qltc.finace.view.main.helper.FragmentFAQ"
+        android:label="FragmentFAQ" />
+    <fragment
+        android:id="@+id/frag_webview"
+        android:name="com.qltc.finace.view.main.webview.FragmentWebView"
+        android:label="NotebookLM" />
+    <fragment
+        android:id="@+id/frag_change_info"
+        android:name="com.qltc.finace.view.main.profile.FragmentChangeInfor"
+        android:label="Chỉnh Sửa Hồ Sơ" />
+    <fragment
+        android:id="@+id/frag_change_password"
+        android:name="com.qltc.finace.view.main.profile.FragmentChangePassword"
+        android:label="Thay Đổi Mật Khẩu" />
+    <fragment
+        android:id="@+id/frag_home"
+        android:name="com.qltc.finace.view.main.home.FragmentHome"
+        android:label="FragmentHome" />
+    <fragment
+        android:id="@+id/frag_income"
+        android:name="com.qltc.finace.view.main.enter.income.IncomeFragment"
+        android:label="IncomeFragment" />
+    <fragment
+        android:id="@+id/frag_expense"
+        android:name="com.qltc.finace.view.main.enter.expense.FragmentExpense"
+        android:label="FragmentExpense" />
+    <fragment
+        android:id="@+id/frag_app_information"
+        android:name="com.qltc.finace.view.main.information.AppInformationFragment"
+        android:label="Thông tin ứng dụng" />
+
+</navigation>

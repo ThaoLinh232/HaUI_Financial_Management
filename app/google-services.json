@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "970613330890",
+    "project_id": "qltchaui",
+    "storage_bucket": "qltchaui.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970613330890:android:33488a9bf62a6fabd63533",
+        "android_client_info": {
+          "package_name": "com.qltc.finace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970613330890-kn6oi16v5ppkdig0v1elj6lp7tgna5t5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qltc.finace",
+            "certificate_hash": "05ad92047cdf5dfe6d62ad31b6e51b3d6f6fdc6c"
+          }
+        },
+        {
+          "client_id": "970613330890-0gqg3u8258bc6ar0n4rus7sv4stcamnh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8tlGksLzDyiuDQVGcowfz6CB61RMwi1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970613330890-0gqg3u8258bc6ar0n4rus7sv4stcamnh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,770 @@
+[
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_visibility.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_visibility.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_un_select.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_un_select.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\anim_fade_out.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\anim\\fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_gmail.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_gmail.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_back_day_left.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_back_day_left.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_dialog_otp_verification.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\dialog_otp_verification.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_expense_income_balance.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_expense_income_balance.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_26.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_26.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_report_income.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_report_income.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_submit.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_submit.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_phone.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_phone.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_helper.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_helper.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_18.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_18.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_item_select.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_item_select.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_total_calendar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_total_calendar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_5.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_5.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_calendar_month.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_calendar_month.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_27.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_27.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_day_of_week.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_day_of_week.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-anydpi-v26\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_calendar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_calendar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_airplane_landing.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_airplane_landing.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_excel.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_excel.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_share.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_share.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_logo_facebook.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_logo_facebook.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_tablayout_home.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_tablayout_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_6.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_6.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\navigation_nav_home.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\navigation\\nav_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\anim_fade_in.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\anim\\fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_money_input.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_money_input.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fagment_report.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fagment_report.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_faq.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_faq.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_toolbar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\toolbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_3.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_3.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_border_top_right.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_border_top_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_24.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_airplane_takeoff.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_airplane_takeoff.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_16.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_16.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_29.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_29.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_up.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_faq.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_faq.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_downer.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_downer.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_31.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_31.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_back.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_back.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_19.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_19.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_information.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_information.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_phone_1.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_phone_1.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_acount_balance.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_acount_balance.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_webview.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_webview.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_item_category_false.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_item_category_false.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fagment_profile.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fagment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\menu_bottom_navigation.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\menu\\bottom_navigation.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_dialog_date_range_picker.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\dialog_date_range_picker.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_popup.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\popup.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_income.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_income.xml"
+    },
+    {
+        "merged": "com.qltc.finace.app-merged_res-84:/layout_activity_splash.xml.flat",
+        "source": "com.qltc.finace.app-main-86:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_refresh.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_refresh.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_notebooklm.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_notebooklm.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_premium.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_premium.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_google.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_google.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_trash.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_trash.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_category_detail.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_category_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_add_category.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\add_category.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_input.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_input.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_9.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_9.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_close.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_close.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_otp.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_otp.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_category_select.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_category_select.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_premium.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_premium.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_17.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_17.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_pdf.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_pdf.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_expense.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_expense.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_radius_5.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_radius_5.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_app_information.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_app_information.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_log_out.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_log_out.xml"
+    },
+    {
+        "merged": "com.qltc.finace.app-merged_res-84:/layout_fragment_sign_up.xml.flat",
+        "source": "com.qltc.finace.app-main-86:/layout/fragment_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_32.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_32.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_input_data_disable.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_input_data_disable.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_notifications.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_notifications.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_calendar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_calendar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_mail.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_mail.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_12.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_12.xml"
+    },
+    {
+        "merged": "com.qltc.finace.app-merged_res-84:/layout_fragment_sign_in.xml.flat",
+        "source": "com.qltc.finace.app-main-86:/layout/fragment_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_date_input.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_date_input.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_4.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_4.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_profile.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_change_infor.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_change_infor.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_25.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_25.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_people.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_people.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_forgot_password.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_forgot_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_money_black.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_money_black.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_day_view_calendar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_day_view_calendar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_category_detail.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_category_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_11.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_11.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_gift.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_gift.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_dialog_email_verification.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\dialog_email_verification.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\xml_file_paths.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\xml\\file_paths.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_radius_20_stroke_1.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_radius_20_stroke_1.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_enter.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_enter.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_dialog_month_year_picker.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\dialog_month_year_picker.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_date.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_date.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_money_income.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_money_income.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_logo_splash.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_logo_splash.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_logo_wallet.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_logo_wallet.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_upper.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_upper.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_change_password.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_change_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_20.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_20.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_call.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_call.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_report_expense.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_report_expense.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_activity_authentication.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\activity_authentication.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_21.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_21.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_pass.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_pass.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_draw.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_draw.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_10.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_10.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_circle_orange.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_circle_orange.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_button_blue.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_button_blue.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_13.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_13.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_nav_header_main.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\nav_header_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_help.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_help.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_list_data_from_category.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_list_data_from_category.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_filter.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_filter.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_faq.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_faq.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_export_pdf_config.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_export_pdf_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_error.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_error.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_zalo.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_zalo.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_input_data.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_input_data.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_calendar_day_legend_container.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\calendar_day_legend_container.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\menu_main_drawer.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\menu\\main_drawer.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_example_5_selected_bg.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\example_5_selected_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_toolbar.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_toolbar.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_category.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_category.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_8.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_8.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_total_category.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_total_category.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_home.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_23.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_23.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_all_data_income_expense.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_all_data_income_expense.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_15.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_15.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_1.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_1.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_30.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_30.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_next.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_next.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_money_expense.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_money_expense.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-anydpi-v33_ic_launcher.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-anydpi-v33\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_login_phone.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_login_phone.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_1_line.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_1_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_edit.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_edit.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\navigation_nav_authentication.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\navigation\\nav_authentication.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_14.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_14.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_edit_text.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_edit_text.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_btn_sign_in.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_btn_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_2.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_2.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_camera.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_code_otp.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_code_otp.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_chevron_right.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_chevron_right.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_visibility_off.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_visibility_off.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_report.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_report.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_item_icon.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\item_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_profile_user.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_profile_user.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_28.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_28.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_input_data_enable.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_input_data_enable.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_yellow_white.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_yellow_white.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable-v24_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable-v24\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_money.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_money.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_expense_income_balance_radius_10.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_expense_income_balance_radius_10.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_day_of_week_header.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\day_of_week_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_sign_up.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_sign_up.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_item_loai.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\item_loai.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_dialog_otp_email_verification.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\dialog_otp_email_verification.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_7.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_7.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_22.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_22.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_activity_splash.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\activity_splash.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_bg_item_category_true.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\bg_item_category_true.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_selector_item_tablayout_home.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\selector_item_tablayout_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\layout_fragment_sign_in.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\layout\\fragment_sign_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-merged_res-84:\\drawable_ic_down.xml.flat",
+        "source": "C:\\Users\\THAOLINH\\.gradle\\daemon\\8.5\\com.qltc.finace.app-main-86:\\drawable\\ic_down.xml"
+    }
+]
