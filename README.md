@@ -35,8 +35,11 @@ git clone https://github.com/ThaoLinh232/HaUI_Financial_Management
 
 ## 📝 Hướng dẫn sử dụng
 
-1. Mở ứng dụng → Đăng nhập/Đăng ký (nếu có)
+1. Mở ứng dụng → Đăng nhập/Đăng ký
 2. Thêm danh mục chi tiêu → Thêm khoản thu/chi
 3. Xem báo cáo phân tích → Xuất báo cáo
+4. Tìm kiếm khoản thu chi
+5. Xem khoản thu chi theo ngày
+6. Chỉnh sửa trang cá nhân
 
 ---
