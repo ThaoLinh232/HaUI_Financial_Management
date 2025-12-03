@@ -75,8 +75,49 @@ class CalendarFragment : BaseFragment<FragmentCalendarBinding, CalendarViewModel
             yearMonth = YearMonth.now(),
             isSelectedDay = false
         )
+        setupSearchView()
+        observeSearchState()
     }
+    private fun setupSearchView() {
+        viewBinding.searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.searchTransactions(it) }
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    viewModel.searchQuery.value = it
+                    // Tìm kiếm realtime khi gõ
+                    viewModel.searchTransactions(it)
+                }
+                return true
+            }
+        })
+
+        // Xử lý khi đóng search
+        viewBinding.searchView.setOnCloseListener {
+            viewModel.isSearching.value = false
+            viewModel.searchQuery.value = ""
+            // Trở về chế độ xem tháng hiện tại
+            viewBinding.calendarView.findFirstVisibleMonth()?.let { month ->
+                viewModel.filterListSyntheticByMonth(month.yearMonth)
+            }
+            false
+        }
+    }
+    private fun observeSearchState() {
+        viewModel.isSearching.observe(viewLifecycleOwner) { isSearching ->
+            // Ẩn/hiện calendar khi đang tìm kiếm
+            viewBinding.calendarView.visibility = if (isSearching) View.GONE else View.VISIBLE
+            viewBinding.groupTotal.visibility = if (isSearching) View.GONE else View.VISIBLE
+
+            // Cập nhật text filter
+            if (isSearching) {
+                viewBinding.filter.text = "Kết quả tìm kiếm: ${viewModel.searchQuery.value}"
+            }
+        }
+    }
 
     private fun configureBinders(daysOfWeek: List<DayOfWeek>) {
 
