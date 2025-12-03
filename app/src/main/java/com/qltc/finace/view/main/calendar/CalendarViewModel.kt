@@ -28,6 +28,9 @@ class CalendarViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ): BaseViewModel() {
     var date = LocalDate.now();
+    var searchQuery = MutableLiveData("")
+    var isSearching = MutableLiveData(false)
+    var originalList = mutableListOf<FinancialRecord>() // Lưu danh sách gốc
     var selectedDate: LocalDate? = null
     var incomeTotal = MutableLiveData(0L);
     var expenseTotal = MutableLiveData(0L);
@@ -60,6 +63,91 @@ class CalendarViewModel @Inject constructor(
                 //calculator()
             }
         }
+    }
+    fun searchTransactions(query: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            if (query.isBlank()) {
+                // Nếu không có query, trả về danh sách gốc
+                withContext(Dispatchers.Main) {
+                    listSyntheticByDate.postValue(originalList.toMutableList())
+                    isSearching.postValue(false)
+                }
+                return@launch
+            }
+
+            isSearching.postValue(true)
+            val queryLower = query.lowercase().trim()
+
+            // Tìm kiếm trong toàn bộ dữ liệu
+            val searchResults = mutableListOf<FinancialRecord>()
+
+            // Tìm trong expense
+            listExpense.forEach { expense ->
+                val categoryTitle = mapCategory[expense.idCategory]?.title?.lowercase() ?: ""
+                val note = expense.note?.lowercase() ?: ""
+
+                if (categoryTitle.contains(queryLower) || note.contains(queryLower)) {
+                    searchResults.add(
+                        FinancialRecord(
+                            idCategory = expense.idCategory,
+                            id = expense.idExpense,
+                            idUser = expense.idUser,
+                            noteExpenseIncome = expense.note,
+                            date = expense.date,
+                            money = expense.expense,
+                            typeExpenseOrIncome = FinancialRecord.TYPE_EXPENSE,
+                            titleCategory = mapCategory[expense.idCategory]?.title,
+                            icon = mapCategory[expense.idCategory]?.icon
+                        )
+                    )
+                }
+            }
+
+            // Tìm trong income
+            listIncome.forEach { income ->
+                val categoryTitle = mapCategory[income.idCategory]?.title?.lowercase() ?: ""
+                val note = income.note?.lowercase() ?: ""
+
+                if (categoryTitle.contains(queryLower) || note.contains(queryLower)) {
+                    searchResults.add(
+                        FinancialRecord(
+                            idCategory = income.idCategory,
+                            id = income.idIncome,
+                            idUser = income.idUser,
+                            noteExpenseIncome = income.note,
+                            date = income.date,
+                            money = income.income,
+                            typeExpenseOrIncome = FinancialRecord.TYPE_INCOME,
+                            titleCategory = mapCategory[income.idCategory]?.title,
+                            icon = mapCategory[income.idCategory]?.icon
+                        )
+                    )
+                }
+            }
+
+            // Sắp xếp theo ngày mới nhất
+            searchResults.sortByDescending { it.date }
+
+            withContext(Dispatchers.Main) {
+                listSyntheticByDate.postValue(searchResults)
+                // Tính lại tổng thu chi cho kết quả tìm kiếm
+                calculateTotalsForSearchResults(searchResults)
+            }
+        }
+    }
+    private fun calculateTotalsForSearchResults(results: List<FinancialRecord>) {
+        var income = 0L
+        var expense = 0L
+
+        results.forEach { record ->
+            when (record.typeExpenseOrIncome) {
+                FinancialRecord.TYPE_INCOME -> income += record.money ?: 0L
+                FinancialRecord.TYPE_EXPENSE -> expense += record.money ?: 0L
+            }
+        }
+
+        incomeTotal.postValue(income)
+        expenseTotal.postValue(expense)
     }
     fun filterListSyntheticByDate(dateSelecting : LocalDate) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -146,6 +234,8 @@ class CalendarViewModel @Inject constructor(
                 }
             }
             withContext(Dispatchers.Main) {
+                originalList.clear()
+                originalList.addAll(list)
                 listSyntheticByDate.postValue(list)
                 incomeTotal.postValue(incomeTotalByDate)
                 expenseTotal.postValue(expenseTotalByDate)
