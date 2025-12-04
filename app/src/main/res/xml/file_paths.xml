@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- External storage root - /storage/emulated/0/ -->
     <external-path
-        name="external_files"
+        name="external_storage"
         path="." />
+    
+    <!-- Documents folder - /storage/emulated/0/Documents/ -->
+    <external-path
+        name="external_documents"
+        path="Documents" />
+    
+    <!-- QLTC folder in Documents - /storage/emulated/0/Documents/QLTC/ -->
+    <external-path
+        name="qltc_documents"
+        path="Documents/QLTC" />
+    
+    <!-- App's external files directory -->
     <external-files-path
         name="external_files"
         path="." />
+    
+    <!-- App's internal files directory -->
     <files-path
         name="files"
         path="." />
+    
+    <!-- App's cache directory -->
     <cache-path
         name="cache"
         path="." />
+    
+    <!-- App's external cache directory -->
     <external-cache-path
         name="external_cache"
         path="." />
+    
+    <!-- App's external media directory -->
     <external-media-path
         name="external_media"
         path="." />
