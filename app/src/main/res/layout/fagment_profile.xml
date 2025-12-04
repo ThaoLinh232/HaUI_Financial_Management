@@ -117,19 +117,19 @@
                 app:iconTint="@null" />
 
             <!-- Help Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp10"
-                android:backgroundTint="@color/white"
-                android:onClick="@{() -> listener.onHelpClick()}"
-                android:paddingVertical="@dimen/dp14"
-                android:text="Trợ Giúp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/dp18"
-                app:icon="@drawable/ic_help"
-                app:iconTint="@null" />
+<!--            <com.google.android.material.button.MaterialButton-->
+<!--                android:id="@+id/btn_help"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/dp10"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:onClick="@{() -> listener.onHelpClick()}"-->
+<!--                android:paddingVertical="@dimen/dp14"-->
+<!--                android:text="Trợ Giúp"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="@dimen/dp18"-->
+<!--                app:icon="@drawable/ic_help"-->
+<!--                app:iconTint="@null" />-->
 
             <!-- Logout Button -->
             <com.google.android.material.button.MaterialButton
