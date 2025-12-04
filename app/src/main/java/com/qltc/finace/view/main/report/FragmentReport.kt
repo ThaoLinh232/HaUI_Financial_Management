@@ -38,11 +38,11 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         android.util.Log.d("FragmentReport", "onViewCreated - Current typeReport: ${viewModel.typeReport.value}")
-        
+
         viewBinding.apply {
             viewModel = this@FragmentReport.viewModel
         }
-        
+
         // Kiểm tra xem dữ liệu đã có sẵn chưa
         if (viewModel.listExpense.isNotEmpty() || viewModel.listIncome.isNotEmpty()) {
             android.util.Log.d("FragmentReport", "Data already available, restoring tab state immediately")
@@ -52,14 +52,26 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
         } else {
             android.util.Log.d("FragmentReport", "Loading data first...")
             // Load dữ liệu và khôi phục trạng thái tab
-        viewModel.getAllData (callBack = {
+            viewModel.getAllData(callBack = {
+                // Kiểm tra Fragment còn attached với Activity không
+                if (!isAdded) {
+                    android.util.Log.d("FragmentReport", "Fragment not attached, skipping callback")
+                    return@getAllData
+                }
+
                 android.util.Log.d("FragmentReport", "getAllData callback - typeReport: ${viewModel.typeReport.value}")
-                android.util.Log.d("FragmentReport", "TabLayout ready: ${viewBinding.tabLayoutReport.tabCount > 0}")
-                // Sau khi load dữ liệu xong, khôi phục tab dựa trên viewModel.typeReport.value
-                restoreTabState()
+
+                // Kiểm tra viewBinding vẫn còn valid
+                try {
+                    android.util.Log.d("FragmentReport", "TabLayout ready: ${viewBinding.tabLayoutReport.tabCount > 0}")
+                    // Sau khi load dữ liệu xong, khôi phục tab dựa trên viewModel.typeReport.value
+                    restoreTabState()
+                } catch (e: Exception) {
+                    android.util.Log.e("FragmentReport", "Error accessing viewBinding in callback: ${e.message}")
+                }
             })
         }
-        
+
         setTimeDefault()
         setUpTabLayout()
         setUpRecyclerView()
@@ -75,23 +87,32 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
             requireContext(),
             currentYearMonth
         ) { selectedYearMonth ->
-            // Cập nhật viewModel.date với ngày đầu tiên của tháng được chọn
-            viewModel.date = selectedYearMonth.atDay(1)
-            
-            // Cập nhật hiển thị tháng/năm trên pickTime
-            val monthText = "Tháng ${selectedYearMonth.monthValue}/${selectedYearMonth.year}"
-                viewBinding.pickTime.text = monthText
-            
+            // Kiểm tra Fragment còn attached không trước khi truy cập viewBinding
+            if (!isAdded) {
+                android.util.Log.d("FragmentReport", "Fragment not attached in openDayPicker callback")
+                return@MonthYearPickerDialog
+            }
+
+            try {
+                // Cập nhật viewModel.date với ngày đầu tiên của tháng được chọn
+                viewModel.date = selectedYearMonth.atDay(1)
+
+                // Cập nhật hiển thị tháng/năm trên monthSelected
+                val monthText = "Tháng ${selectedYearMonth.monthValue}/${selectedYearMonth.year}"
+                viewBinding.monthSelected.text = monthText
+
                 // Cập nhật dữ liệu dựa vào tab hiện tại
                 if (viewModel?.typeReport?.value == CHOOSE_EXPENSE) {
-                viewModel.prepareDataPieChartExpenseByMonth(selectedYearMonth)
+                    viewModel.prepareDataPieChartExpenseByMonth(selectedYearMonth)
                     notifyRecyclerViewNeedUpdate()
-                }
-                else {
-                viewModel.filterDataIncomeByMonth(selectedYearMonth)
+                } else {
+                    viewModel.filterDataIncomeByMonth(selectedYearMonth)
                     updateIncomeRecyclerView()
                 }
                 updateMonthDisplay()
+            } catch (e: Exception) {
+                android.util.Log.e("FragmentReport", "Error in openDayPicker callback: ${e.message}")
+            }
         }
         dialog.show()
     }
@@ -100,10 +121,14 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
         findNavController().navigateWithAnim(R.id.frg_all_income_expense, bundleOf())
     }
 
+    override fun navigateToExportPdf() {
+        findNavController().navigateWithAnim(R.id.frg_export_pdf, bundleOf())
+    }
+
     private fun setTimeDefault() {
         val yearMonth = YearMonth.from(viewModel.date)
         val monthText = "Tháng ${yearMonth.monthValue}/${yearMonth.year}"
-        viewBinding.pickTime.text = monthText
+        viewBinding.monthSelected.text = monthText
         updateMonthDisplay()
     }
 
@@ -121,31 +146,31 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
         }
         setUpTabLayoutListener()
     }
-    
+
     private fun setUpTabLayoutListener() {
         viewBinding.tabLayoutReport.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
-                override fun onTabSelected(p0: TabLayout.Tab?) {
+            override fun onTabSelected(p0: TabLayout.Tab?) {
                 android.util.Log.d("FragmentReport", "Tab selected: ${p0?.position}")
-                    if (p0?.position == CHOOSE_EXPENSE) {
+                if (p0?.position == CHOOSE_EXPENSE) {
                     android.util.Log.d("FragmentReport", "Switching to expense tab")
-                        viewModel?.typeReport?.value = CHOOSE_EXPENSE
-                        // Hiển thị dữ liệu chi tiêu
-                        viewBinding.mChart.centerText = "Khoản chi"
-                        observeExpenseData()
-                    }
-                    else if (p0?.position == CHOOSE_INCOME) {
-                    android.util.Log.d("FragmentReport", "Switching to income tab")
-                        viewModel?.typeReport?.value = CHOOSE_INCOME
-                        // Hiển thị dữ liệu khoản thu
-                        viewBinding.mChart.centerText = "Khoản thu"
-                        observeIncomeData()
-                    }
+                    viewModel?.typeReport?.value = CHOOSE_EXPENSE
+                    // Hiển thị dữ liệu chi tiêu
+                    viewBinding.mChart.centerText = "Khoản chi"
+                    observeExpenseData()
                 }
+                else if (p0?.position == CHOOSE_INCOME) {
+                    android.util.Log.d("FragmentReport", "Switching to income tab")
+                    viewModel?.typeReport?.value = CHOOSE_INCOME
+                    // Hiển thị dữ liệu khoản thu
+                    viewBinding.mChart.centerText = "Khoản thu"
+                    observeIncomeData()
+                }
+            }
 
-                override fun onTabUnselected(p0: TabLayout.Tab?) {}
+            override fun onTabUnselected(p0: TabLayout.Tab?) {}
 
-                override fun onTabReselected(p0: TabLayout.Tab?) {}
-            })
+            override fun onTabReselected(p0: TabLayout.Tab?) {}
+        })
     }
     private fun setUpRecyclerView() {
         viewBinding.apply {
@@ -168,7 +193,7 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
             )
             setOnChartValueSelectedListener(this@FragmentReport)
         }
-        
+
         // Không khởi tạo observer ở đây nữa
         // Observer sẽ được khởi tạo trong restoreTabState() sau khi load dữ liệu xong
     }
@@ -198,13 +223,13 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
 
     private fun observeExpenseData() {
         android.util.Log.d("FragmentReport", "Setting up expense observers")
-        
+
         // Remove any existing observers to avoid conflicts
         viewModel.dataPieChar.removeObservers(viewLifecycleOwner)
         viewModel.dataRcv.removeObservers(viewLifecycleOwner)
         viewModel.dataIncomePieChar.removeObservers(viewLifecycleOwner)
         viewModel.dataIncomeRcv.removeObservers(viewLifecycleOwner)
-        
+
         // Đăng ký observer cho dữ liệu chi tiêu
         viewModel.dataPieChar.observe(viewLifecycleOwner) {
             android.util.Log.d("FragmentReport", "Expense pie chart data updated: ${it.size} entries")
@@ -217,16 +242,16 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
         }
         viewModel.prepareDataPieChartExpenseByMonth(YearMonth.from(viewModel.date))
     }
-    
+
     private fun observeIncomeData() {
         android.util.Log.d("FragmentReport", "Setting up income observers")
-        
+
         // Remove any existing observers to avoid conflicts
         viewModel.dataPieChar.removeObservers(viewLifecycleOwner)
         viewModel.dataRcv.removeObservers(viewLifecycleOwner)
         viewModel.dataIncomePieChar.removeObservers(viewLifecycleOwner)
         viewModel.dataIncomeRcv.removeObservers(viewLifecycleOwner)
-        
+
         // Đăng ký observer cho dữ liệu khoản thu
         viewModel.dataIncomePieChar.observe(viewLifecycleOwner) {
             android.util.Log.d("FragmentReport", "Income pie chart data updated: ${it.size} entries")
@@ -239,42 +264,42 @@ class FragmentReport : BaseFragment<FagmentReportBinding, ReportViewModel>(), Re
         }
         viewModel.filterDataIncomeByMonth(YearMonth.from(viewModel.date))
     }
-    
+
     private fun updateIncomeRecyclerView() {
         viewModel.rcvIncomePrepare(YearMonth.from(viewModel.date))
         updateMonthDisplay()
     }
-    
+
     /**
      * Khôi phục trạng thái tab dựa trên viewModel.typeReport.value
      * Được gọi sau khi load dữ liệu xong
      */
     private fun restoreTabState() {
         val currentTabType = viewModel.typeReport.value ?: CHOOSE_EXPENSE
-        
+
         android.util.Log.d("FragmentReport", "Restoring tab state: $currentTabType (0=expense, 1=income)")
         android.util.Log.d("FragmentReport", "TabLayout tab count: ${viewBinding.tabLayoutReport.tabCount}")
-        
+
         // Post to UI thread để đảm bảo TabLayout đã sẵn sàng
         viewBinding.tabLayoutReport.post {
             // Tạm thời remove listener để tránh trigger khi set tab
             val listener = viewBinding.tabLayoutReport.getTabAt(0)?.parent as? TabLayout
             viewBinding.tabLayoutReport.clearOnTabSelectedListeners()
-            
+
             // Set tab hiện tại
             val targetTab = viewBinding.tabLayoutReport.getTabAt(currentTabType)
             android.util.Log.d("FragmentReport", "Target tab: $targetTab, position: $currentTabType")
-            
+
             if (targetTab != null) {
                 viewBinding.tabLayoutReport.selectTab(targetTab)
                 android.util.Log.d("FragmentReport", "Tab selected successfully. Current selected: ${viewBinding.tabLayoutReport.selectedTabPosition}")
             } else {
                 android.util.Log.e("FragmentReport", "Target tab is null!")
             }
-            
+
             // Restore listener
             setUpTabLayoutListener()
-            
+
             // Khởi tạo dữ liệu cho tab hiện tại
             if (currentTabType == CHOOSE_EXPENSE) {
                 android.util.Log.d("FragmentReport", "Initializing expense data")

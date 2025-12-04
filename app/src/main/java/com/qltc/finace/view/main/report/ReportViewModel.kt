@@ -88,7 +88,7 @@ class ReportViewModel @Inject constructor(
             }
         }
     }
-//    fun filterExpenseByCategory() {
+    //    fun filterExpenseByCategory() {
 //        val l = listCategory.map { item ->
 //            val l = getExpenseByCategory(item)
 //            CategoryExpenseDetail(
@@ -132,12 +132,12 @@ class ReportViewModel @Inject constructor(
     private fun getExpenseWithCategoryOfMonth(month: YearMonth): MutableList<CategoryExpenseDetail> {
         val listExpenseOfMonth = getExpenseByMonth(month)
         return listExpenseOfMonth.groupBy { it.idCategory }.map { (idCategory, listExpense) ->
-                CategoryExpenseDetail(
-                    category = getCategoryObject(idCategory),
-                    totalAmount = listExpense.sumExpenseMoney(),
-                    listExpense = listExpense
-                )
-            }.toMutableList()
+            CategoryExpenseDetail(
+                category = getCategoryObject(idCategory),
+                totalAmount = listExpense.sumExpenseMoney(),
+                listExpense = listExpense
+            )
+        }.toMutableList()
     }
 
     // Thêm getter cho CategoryExpenseDetail
@@ -153,22 +153,22 @@ class ReportViewModel @Inject constructor(
                 val lExpense = expenseRepository.getAllExpense()
                 val lCategory = categoryRepository.getAll()
                 val lIncome = inComeRepository.getAllIncome()
-                
+
                 withContext(Dispatchers.Main) {
                     Log.d(TAG, "Refreshing data: ${lExpense.size} expenses, ${lIncome.size} incomes")
                     listExpense = lExpense
                     listCategory = lCategory
                     listIncome = lIncome
                     calculateTotal()
-                    
+
                     // Tự động cập nhật biểu đồ và danh sách với dữ liệu mới
                     val currentMonth = YearMonth.from(date)
                     if (typeReport.value == FragmentReport.CHOOSE_EXPENSE) {
-                    prepareDataPieChartExpenseByMonth(currentMonth)
+                        prepareDataPieChartExpenseByMonth(currentMonth)
                     } else {
                         filterDataIncomeByMonth(currentMonth)
                     }
-                    
+
                     _isDataRefreshed.value = true // Đánh dấu đã refresh xong
                 }
             } catch (e: Exception) {
@@ -186,7 +186,7 @@ class ReportViewModel @Inject constructor(
         val filteredExpenses = listExpense.filter { expense ->
             expense.idCategory == categoryID && expense.getYearMonth() == yearMonth.toString()
         }.toList() // Tạo một list mới để tránh cache
-        
+
         Log.d(TAG, "Found ${filteredExpenses.size} expenses for category $categoryID in month $yearMonth")
         return filteredExpenses
     }
@@ -201,9 +201,9 @@ class ReportViewModel @Inject constructor(
                 lExpenseOther.addAll(list[i].listExpense?: mutableListOf())
             }
             return PieEntry(
-                    total.toFloat(),
-                    applicationContext.getString(R.string.other),
-                    lExpenseOther
+                total.toFloat(),
+                applicationContext.getString(R.string.other),
+                lExpenseOther
             )
         }
         return null
@@ -326,7 +326,7 @@ class ReportViewModel @Inject constructor(
     fun rcvIncomePrepare(yearMonth: YearMonth) {
         val l = mutableListOf<CategoryOverView>()
         val incomesWithCategory = getIncomeWithCategoryOfMonth(yearMonth)
-        
+
         for (item in incomesWithCategory) {
             val lIncome = item.listIncome?.filter { income: Income ->
                 yearMonth.toString() == income.getYearMonth()

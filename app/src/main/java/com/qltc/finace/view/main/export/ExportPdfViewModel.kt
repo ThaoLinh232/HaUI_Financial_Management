@@ -22,6 +22,7 @@ import com.qltc.finace.data.repository.local.category.CategoryRepository
 import com.qltc.finace.data.repository.local.expense.ExpenseRepository
 import com.qltc.finace.data.repository.local.income.InComeRepository
 import com.qltc.finace.utils.PdfExportHelper
+import com.qltc.finace.utils.CsvExportHelper
 import com.qltc.finace.extension.toMonthYearString
 import com.qltc.finace.extension.toLocalDate
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -43,38 +44,93 @@ class ExportPdfViewModel @Inject constructor(
     private val incomeRepository: InComeRepository,
     private val categoryRepository: CategoryRepository
 ) : BaseViewModel() {
-    
+
     private val _pdfGenerationResult = SingleLiveData<Uri?>()
     val pdfGenerationResult: LiveData<Uri?> = _pdfGenerationResult
-    
+
     private val _errorMessage = MutableLiveData<String>("")
     val errorMessage: LiveData<String> = _errorMessage
-    
+
     private val _isLoading = MutableLiveData(false)
     val isLoading: LiveData<Boolean> = _isLoading
-    
+
     private val _listCategory = MutableLiveData<List<Category>>(listOf())
     val listCategory: LiveData<List<Category>> = _listCategory
 
     // Store data in memory for filtering
     private var _listExpense = mutableListOf<Expense>()
     private var _listIncome = mutableListOf<Income>()
-    
+
     // Flag to track if data is ready
     private val _isDataReady = SingleLiveData<Boolean>(false)
     val isDataReady: LiveData<Boolean> = _isDataReady
-    
+    // BEGIN
+    // LiveData cho từng format
+    private val _isPdfChecked = MutableLiveData<Boolean>(true)
+    val isPdfChecked: LiveData<Boolean> = _isPdfChecked
+
+    private val _isDocChecked = MutableLiveData<Boolean>(false)
+    val isDocChecked: LiveData<Boolean> = _isDocChecked
+
+    private val _isCsvChecked = MutableLiveData<Boolean>(false)
+    val isCsvChecked: LiveData<Boolean> = _isCsvChecked
+
+    // LiveData cho Select All
+    private val _isSelectAllChecked = MutableLiveData<Boolean>(false)
+    val isSelectAllChecked: LiveData<Boolean> = _isSelectAllChecked
+    //END
     private var currentJob: Job? = null
-    
+
+
+
     init {
         loadAllData()
     }
-    
+
     override fun onCleared() {
         super.onCleared()
         currentJob?.cancel()
     }
-    
+
+    // Kiểm tra xem các checkbox chọn file
+    // Update methods
+    fun updatePdfCheck(isChecked: Boolean) {
+        _isPdfChecked.value = isChecked
+        updateSelectAllState()
+    }
+
+    fun updateDocCheck(isChecked: Boolean) {
+        _isDocChecked.value = isChecked
+        updateSelectAllState()
+    }
+
+    fun updateCsvCheck(isChecked: Boolean) {
+        _isCsvChecked.value = isChecked
+        updateSelectAllState()
+    }
+
+    fun updateSelectAll(isChecked: Boolean) {
+        _isPdfChecked.value = isChecked
+        _isDocChecked.value = isChecked
+        _isCsvChecked.value = isChecked
+        _isSelectAllChecked.value = isChecked
+    }
+
+    private fun updateSelectAllState() {
+        val allChecked = _isPdfChecked.value == true &&
+                _isDocChecked.value == true &&
+                _isCsvChecked.value == true
+        _isSelectAllChecked.value = allChecked
+    }
+
+    // Kiểm tra có format nào được chọn
+    fun isAnyFormatSelected(): Boolean {
+        return _isPdfChecked.value == true ||
+                _isDocChecked.value == true ||
+                _isCsvChecked.value == true
+    }
+
+
     private fun loadAllData() {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
@@ -83,7 +139,7 @@ class ExportPdfViewModel @Inject constructor(
                 val categories = categoryRepository.getAll()
                 val expenses = expenseRepository.getAllExpense()
                 val incomes = incomeRepository.getAllIncome()
-                
+
                 withContext(Dispatchers.Main) {
                     _listCategory.value = categories
                     _listExpense = expenses
@@ -101,12 +157,13 @@ class ExportPdfViewModel @Inject constructor(
             }
         }
     }
-    
-    fun generatePdf(
+
+    fun generateFile(
         context: Context,
         fileName: String,
         month: YearMonth,
         reportType: Int,
+        fileType: ExportFormat,
         displayOptions: Int,
         expensePieChart: PieChart? = null,
         incomePieChart: PieChart? = null
@@ -115,34 +172,34 @@ class ExportPdfViewModel @Inject constructor(
             _errorMessage.value = "Vui lòng nhập tên file"
             return
         }
-        
+
         if (!fileName.matches("[a-zA-Z0-9_\\- ]+".toRegex())) {
             _errorMessage.value = "Tên file chỉ được chứa chữ cái, số, dấu gạch ngang, gạch dưới và khoảng trắng"
             return
         }
-        
+
         if (!_isDataReady.value!!) {
             _errorMessage.value = "Đang tải dữ liệu, vui lòng thử lại sau"
             loadAllData() // Try to reload data
             return
         }
-        
+
         _isLoading.value = true
         _errorMessage.value = ""
-        
+
         currentJob?.cancel()
-        
+
         currentJob = viewModelScope.launch(Dispatchers.IO) {
             try {
                 // Get the first and last day of the selected month
                 val firstDayOfMonth = month.atDay(1)
                 val lastDayOfMonth = month.atEndOfMonth()
-                
+
                 Log.d(TAG, "Export PDF for month: $month (${firstDayOfMonth} to ${lastDayOfMonth})")
-                
+
                 var expenseData: List<CategoryExpenseDetail>? = null
                 var incomeData: List<CategoryIncomeDetail>? = null
-                
+
                 // Filter expenses and incomes for the selected month
                 if (reportType == PdfExportHelper.TYPE_EXPENSE || reportType == PdfExportHelper.TYPE_BOTH) {
                     val expensesInMonth = _listExpense.filter { expense ->
@@ -154,7 +211,7 @@ class ExportPdfViewModel @Inject constructor(
                             false
                         }
                     }
-                    
+
                     if (expensesInMonth.isNotEmpty()) {
                         val expensesByCategory = expensesInMonth.groupBy { it.idCategory }
                         expenseData = expensesByCategory.mapNotNull { (categoryId, expenses) ->
@@ -171,7 +228,7 @@ class ExportPdfViewModel @Inject constructor(
                         Log.d(TAG, "No expenses found in month")
                     }
                 }
-                
+
                 // Filter income for the selected month
                 if (reportType == PdfExportHelper.TYPE_INCOME || reportType == PdfExportHelper.TYPE_BOTH) {
                     val incomesInMonth = _listIncome.filter { income ->
@@ -183,7 +240,7 @@ class ExportPdfViewModel @Inject constructor(
                             false
                         }
                     }
-                    
+
                     if (incomesInMonth.isNotEmpty()) {
                         val incomesByCategory = incomesInMonth.groupBy { it.idCategory }
                         incomeData = incomesByCategory.mapNotNull { (categoryId, incomes) ->
@@ -200,85 +257,106 @@ class ExportPdfViewModel @Inject constructor(
                         Log.d(TAG, "No incomes found in month")
                     }
                 }
-                
+
                 // Format date for error messages
                 val dateFormatter = DateTimeFormatter.ofPattern("MM/yyyy", Locale.getDefault())
                 val monthFormatted = month.format(dateFormatter)
-                
+
                 // Check if there's no data to export
-                if ((reportType == PdfExportHelper.TYPE_EXPENSE || reportType == PdfExportHelper.TYPE_BOTH) && 
+                if ((reportType == PdfExportHelper.TYPE_EXPENSE || reportType == PdfExportHelper.TYPE_BOTH) &&
                     (expenseData == null || expenseData.isEmpty())) {
-                    
+
                     val message = if (_listExpense.isEmpty()) {
                         "Không tìm thấy dữ liệu chi tiêu nào"
                     } else {
                         "Không có dữ liệu chi tiêu trong tháng $monthFormatted"
                     }
-                    
+
                     withContext(Dispatchers.Main) {
                         _errorMessage.value = message
                         _isLoading.value = false
                     }
                     return@launch
                 }
-                
-                if ((reportType == PdfExportHelper.TYPE_INCOME || reportType == PdfExportHelper.TYPE_BOTH) && 
+
+                if ((reportType == PdfExportHelper.TYPE_INCOME || reportType == PdfExportHelper.TYPE_BOTH) &&
                     (incomeData == null || incomeData.isEmpty())) {
-                    
+
                     val message = if (_listIncome.isEmpty()) {
                         "Không tìm thấy dữ liệu thu nhập nào"
                     } else {
                         "Không có dữ liệu thu nhập trong tháng $monthFormatted"
                     }
-                    
+
                     withContext(Dispatchers.Main) {
                         _errorMessage.value = message
                         _isLoading.value = false
                     }
                     return@launch
                 }
-                
+
                 try {
-                    val pdfHelper = PdfExportHelper(context)
-                    val uri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        val contentValues = ContentValues().apply {
-                            put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.pdf")
-                            put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                            put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS)
+                    val uri = when (fileType) {
+                        ExportFormat.PDF -> {
+                            // Xuất file PDF với biểu đồ (CODE CŨ)
+                            val pdfHelper = PdfExportHelper(context)
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                                val contentValues = ContentValues().apply {
+                                    put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.pdf")
+                                    put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOCUMENTS)
+                                }
+                                pdfHelper.createPdfReportWithMediaStore(
+                                    contentValues = contentValues,
+                                    startDate = firstDayOfMonth,
+                                    endDate = lastDayOfMonth,
+                                    reportType = reportType,
+                                    displayOptions = displayOptions,
+                                    expenseData = expenseData,
+                                    incomeData = incomeData,
+                                    expensePieChart = expensePieChart,
+                                    incomePieChart = incomePieChart
+                                )
+                            } else {
+                                pdfHelper.createPdfReport(
+                                    fileName = fileName,
+                                    startDate = firstDayOfMonth,
+                                    endDate = lastDayOfMonth,
+                                    reportType = reportType,
+                                    displayOptions = displayOptions,
+                                    expenseData = expenseData,
+                                    incomeData = incomeData,
+                                    expensePieChart = expensePieChart,
+                                    incomePieChart = incomePieChart
+                                )
+                            }
                         }
-                        pdfHelper.createPdfReportWithMediaStore(
-                            contentValues = contentValues,
-                            startDate = firstDayOfMonth,
-                            endDate = lastDayOfMonth,
-                            reportType = reportType,
-                            displayOptions = displayOptions,
-                            expenseData = expenseData,
-                            incomeData = incomeData,
-                            expensePieChart = expensePieChart,
-                            incomePieChart = incomePieChart
-                        )
-                    } else {
-                        pdfHelper.createPdfReport(
-                            fileName = fileName,
-                            startDate = firstDayOfMonth,
-                            endDate = lastDayOfMonth,
-                            reportType = reportType,
-                            displayOptions = displayOptions,
-                            expenseData = expenseData,
-                            incomeData = incomeData,
-                            expensePieChart = expensePieChart,
-                            incomePieChart = incomePieChart
-                        )
+                        ExportFormat.CSV -> {
+                            // Xuất file CSV (không cần biểu đồ)
+                            val csvHelper = CsvExportHelper(context)
+                            csvHelper.createCsvReport(
+                                fileName = fileName,
+                                startDate = firstDayOfMonth,
+                                endDate = lastDayOfMonth,
+                                reportType = reportType,
+                                expenseData = expenseData,
+                                incomeData = incomeData
+                            )
+                        }
+                        ExportFormat.DOC -> {
+                            // TODO: Implement DOC export trong tương lai
+                            throw UnsupportedOperationException("Chức năng xuất file DOC đang được phát triển")
+                        }
                     }
-                    
+
                     withContext(Dispatchers.Main) {
                         _pdfGenerationResult.value = uri
                         _isLoading.value = false
-                        
+
                         // Calculate total transactions exported
                         val totalExpenseTransactions = expenseData?.sumOf { it.listExpense?.size ?: 0 } ?: 0
                         val totalIncomeTransactions = incomeData?.sumOf { it.listIncome?.size ?: 0 } ?: 0
-                        
+
                         Log.d(TAG, "PDF export successful. Exported $totalExpenseTransactions expenses and $totalIncomeTransactions incomes for month: $monthFormatted")
                     }
                 } catch (e: IOException) {
@@ -309,11 +387,11 @@ class ExportPdfViewModel @Inject constructor(
             }
         }
     }
-    
+
     fun refreshData() {
         loadAllData()
     }
-    
+
     /**
      * Lấy dữ liệu chi tiêu cho tháng được chọn
      */
@@ -323,30 +401,30 @@ class ExportPdfViewModel @Inject constructor(
                 Log.d(TAG, "No expense data available")
                 return null
             }
-            
+
             val firstDay = month.atDay(1)
             val lastDay = month.atEndOfMonth()
-            
+
             // Filter expenses for the month
             val expensesForMonth = _listExpense.filter { expense ->
                 val expenseDate = expense.date?.let { LocalDate.parse(it) }
                 expenseDate != null && !expenseDate.isBefore(firstDay) && !expenseDate.isAfter(lastDay)
             }
-            
+
             if (expensesForMonth.isEmpty()) {
                 Log.d(TAG, "No expenses found for month: $month")
                 return null
             }
-            
+
             // Group by category
             val groupedExpenses = expensesForMonth.groupBy { it.idCategory }
             val result = mutableListOf<CategoryExpenseDetail>()
-            
+
             // Create CategoryExpenseDetail for each category
             groupedExpenses.forEach { (categoryId, expenses) ->
                 val category = _listCategory.value?.find { it.idCategory == categoryId }
                 val totalAmount = expenses.sumOf { it.expense ?: 0 }
-                
+
                 if (totalAmount > 0) {
                     result.add(
                         CategoryExpenseDetail(
@@ -357,14 +435,14 @@ class ExportPdfViewModel @Inject constructor(
                     )
                 }
             }
-            
+
             return result.sortedByDescending { it.totalAmount }
         } catch (e: Exception) {
             Log.e(TAG, "Error getting expense data for month: ${e.message}", e)
             return null
         }
     }
-    
+
     /**
      * Lấy dữ liệu thu nhập cho tháng được chọn
      */
@@ -374,30 +452,30 @@ class ExportPdfViewModel @Inject constructor(
                 Log.d(TAG, "No income data available")
                 return null
             }
-            
+
             val firstDay = month.atDay(1)
             val lastDay = month.atEndOfMonth()
-            
+
             // Filter incomes for the month
             val incomesForMonth = _listIncome.filter { income ->
                 val incomeDate = income.date?.let { LocalDate.parse(it) }
                 incomeDate != null && !incomeDate.isBefore(firstDay) && !incomeDate.isAfter(lastDay)
             }
-            
+
             if (incomesForMonth.isEmpty()) {
                 Log.d(TAG, "No incomes found for month: $month")
                 return null
             }
-            
+
             // Group by category
             val groupedIncomes = incomesForMonth.groupBy { it.idCategory }
             val result = mutableListOf<CategoryIncomeDetail>()
-            
+
             // Create CategoryIncomeDetail for each category
             groupedIncomes.forEach { (categoryId, incomes) ->
                 val category = _listCategory.value?.find { it.idCategory == categoryId }
                 val totalAmount = incomes.sumOf { it.income ?: 0 }
-                
+
                 if (totalAmount > 0) {
                     result.add(
                         CategoryIncomeDetail(
@@ -408,15 +486,18 @@ class ExportPdfViewModel @Inject constructor(
                     )
                 }
             }
-            
+
             return result.sortedByDescending { it.totalAmount }
         } catch (e: Exception) {
             Log.e(TAG, "Error getting income data for month: ${e.message}", e)
             return null
         }
     }
-    
+
     companion object {
         private const val TAG = "ExportPdfViewModel"
+
+        const val FORMAT_PDF = 0
+        const val FORMAT_CSV = 1
     }
 } 

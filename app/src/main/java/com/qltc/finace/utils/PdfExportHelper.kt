@@ -6,8 +6,10 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
@@ -35,6 +37,21 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.apply
+import kotlin.collections.forEach
+import kotlin.collections.forEachIndexed
+import kotlin.collections.isEmpty
+import kotlin.collections.isNullOrEmpty
+import kotlin.collections.joinToString
+import kotlin.collections.sumOf
+import kotlin.collections.take
+import kotlin.io.copyTo
+import kotlin.io.outputStream
+import kotlin.io.readBytes
+import kotlin.io.use
+import kotlin.jvm.javaClass
+import kotlin.text.contains
+import kotlin.text.toRegex
 
 class PdfExportHelper(private val context: Context) {
     
@@ -93,41 +110,31 @@ class PdfExportHelper(private val context: Context) {
             // Sử dụng phương thức an toàn cho tất cả phiên bản Android
             val pdfFile: File
             val fileOutputStream: FileOutputStream
+            val returnUri: Uri
             
             // Tạo file trong directory của ứng dụng
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
-                // Sử dụng thư mục chuyên dụng trên Android 10+
-                val contentValues = android.content.ContentValues().apply {
-                    put(android.provider.MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.pdf")
-                    put(android.provider.MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                    put(android.provider.MediaStore.MediaColumns.RELATIVE_PATH, "Documents/QLTC")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                // Android 10+: Sử dụng MediaStore
+                Log.d(TAG, "Android 10+: Using MediaStore for PDF creation")
+                val contentValues = ContentValues().apply {
+                    put(MediaStore.MediaColumns.DISPLAY_NAME, "$fileName.pdf")
+                    put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
+                    put(MediaStore.MediaColumns.RELATIVE_PATH, "Documents/QLTC")
                 }
                 
-                val contentUri = android.provider.MediaStore.Files.getContentUri("external")
+                val contentUri = MediaStore.Files.getContentUri("external")
                 val uri = context.contentResolver.insert(contentUri, contentValues)
                 
                 if (uri != null) {
+                    Log.d(TAG, "MediaStore URI created: $uri")
                     fileOutputStream = context.contentResolver.openOutputStream(uri) as FileOutputStream
-                    
-                    PdfWriter.getInstance(document, fileOutputStream)
-                    document.open()
-                    
-                    // Add document header
-                    addDocumentHeader(document, startDate, endDate, reportType)
-                    
-                    // Add content based on report type
-                    addReportContent(document, reportType, displayOptions, expenseData, incomeData, expensePieChart, incomePieChart)
-                    
-                    // Close the document
-                    document.close()
-                    fileOutputStream.close()
-                    
-                    return uri
+                    returnUri = uri
                 } else {
-                    throw Exception("Không thể tạo file PDF")
+                    throw kotlin.Exception("Không thể tạo file PDF qua MediaStore")
                 }
             } else {
-                // Sử dụng phương thức cũ cho Android 9 trở xuống
+                // Android 9 trở xuống: Sử dụng FileProvider
+                Log.d(TAG, "Android 9 and below: Using FileProvider for PDF creation")
                 val pdfDir = File(
                     Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS),
                     "QLTC"
@@ -139,26 +146,31 @@ class PdfExportHelper(private val context: Context) {
                 pdfFile = File(pdfDir, "$fileName.pdf")
                 fileOutputStream = FileOutputStream(pdfFile)
                 
-                PdfWriter.getInstance(document, fileOutputStream)
-                document.open()
-                
-                // Add document header
-                addDocumentHeader(document, startDate, endDate, reportType)
-                
-                // Add content based on report type
-                addReportContent(document, reportType, displayOptions, expenseData, incomeData, expensePieChart, incomePieChart)
-                
-                // Close the document
-                document.close()
-                fileOutputStream.close()
-                
-                // Return URI for the generated file
-                return FileProvider.getUriForFile(
+                // Sử dụng FileProvider để tạo URI an toàn
+                returnUri = FileProvider.getUriForFile(
                     context,
                     FILE_PROVIDER_AUTHORITY,
                     pdfFile
                 )
+                Log.d(TAG, "FileProvider URI created: $returnUri for file: ${pdfFile.absolutePath}")
             }
+            
+            // Tạo PDF document
+            PdfWriter.getInstance(document, fileOutputStream)
+            document.open()
+            
+            // Add document header
+            addDocumentHeader(document, startDate, endDate, reportType)
+            
+            // Add content based on report type
+            addReportContent(document, reportType, displayOptions, expenseData, incomeData, expensePieChart, incomePieChart)
+            
+            // Close the document
+            document.close()
+            fileOutputStream.close()
+            
+            Log.d(TAG, "PDF created successfully: $returnUri")
+            return returnUri
         } catch (e: Exception) {
             Log.e(TAG, "Error creating PDF: ${e.message}", e)
             return null
@@ -662,7 +674,7 @@ class PdfExportHelper(private val context: Context) {
             // Kiểm tra chart data
             if (chart.data == null) {
                 Log.w(TAG, "⚠️ Chart data is null!")
-                throw Exception("Chart data is null")
+                throw kotlin.Exception("Chart data is null")
             }
             
             val totalValue = chart.data.yValueSum
@@ -671,7 +683,7 @@ class PdfExportHelper(private val context: Context) {
             
             if (totalValue <= 0 || entryCount <= 0) {
                 Log.w(TAG, "⚠️ Chart has no valid data!")
-                throw Exception("Chart has no valid data (totalValue=$totalValue, entryCount=$entryCount)")
+                throw kotlin.Exception("Chart has no valid data (totalValue=$totalValue, entryCount=$entryCount)")
             }
             
             // Đảm bảo chart đã được render và tính toán đầy đủ
@@ -695,7 +707,7 @@ class PdfExportHelper(private val context: Context) {
             val bitmap = getBitmapFromView(chart)
             
             if (bitmap.isRecycled) {
-                throw Exception("Generated bitmap is recycled")
+                throw kotlin.Exception("Generated bitmap is recycled")
             }
             
             Log.d(TAG, "✅ Bitmap created: ${bitmap.width}x${bitmap.height}, config=${bitmap.config}")
@@ -706,14 +718,14 @@ class PdfExportHelper(private val context: Context) {
             val compressed = bitmap.compress(Bitmap.CompressFormat.PNG, 95, stream)
             
             if (!compressed) {
-                throw Exception("Failed to compress bitmap to PNG")
+                throw kotlin.Exception("Failed to compress bitmap to PNG")
             }
             
             val byteArray = stream.toByteArray()
             Log.d(TAG, "📦 Bitmap compressed to ${byteArray.size} bytes")
             
             if (byteArray.isEmpty()) {
-                throw Exception("Compressed bitmap is empty")
+                throw kotlin.Exception("Compressed bitmap is empty")
             }
             
             val image = Image.getInstance(byteArray)
@@ -775,11 +787,11 @@ class PdfExportHelper(private val context: Context) {
             
             // Kiểm tra view có hợp lệ không
             if (view.data == null) {
-                throw Exception("Chart data is null")
+                throw kotlin.Exception("Chart data is null")
             }
             
             if (view.data.entryCount <= 0) {
-                throw Exception("Chart has no data entries")
+                throw kotlin.Exception("Chart has no data entries")
             }
             
             // Đảm bảo view có kích thước hợp lý
@@ -797,7 +809,7 @@ class PdfExportHelper(private val context: Context) {
             
             // Kiểm tra lại sau khi layout
             if (view.width <= 0 || view.height <= 0) {
-                throw Exception("Chart still has invalid dimensions after layout: ${view.width}x${view.height}")
+                throw kotlin.Exception("Chart still has invalid dimensions after layout: ${view.width}x${view.height}")
             }
             
             // Sử dụng kích thước tối ưu để đảm bảo chất lượng bitmap
@@ -866,7 +878,7 @@ class PdfExportHelper(private val context: Context) {
             
             // Kiểm tra bitmap có hợp lệ không
             if (returnedBitmap.isRecycled) {
-                throw Exception("Generated bitmap is recycled")
+                throw kotlin.Exception("Generated bitmap is recycled")
             }
             
             return returnedBitmap
@@ -909,11 +921,11 @@ class PdfExportHelper(private val context: Context) {
             val canvas = Canvas(bitmap)
             canvas.drawColor(Color.WHITE)
             
-            val paint = android.graphics.Paint().apply {
+            val paint = Paint().apply {
                 color = Color.RED
                 textSize = 32f
                 isAntiAlias = true
-                textAlign = android.graphics.Paint.Align.CENTER
+                textAlign = Paint.Align.CENTER
             }
             
             // Vẽ nhiều dòng text
@@ -1473,7 +1485,7 @@ class PdfExportHelper(private val context: Context) {
     fun openPdfFile(uri: Uri) {
         val intent = Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, "application/pdf")
-            flags = Intent.FLAG_ACTIVITY_NO_HISTORY or 
+            flags = Intent.FLAG_ACTIVITY_NO_HISTORY or
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
         }
         
@@ -1528,7 +1540,7 @@ class PdfExportHelper(private val context: Context) {
                 Log.d(TAG, "✅ Font file exists in assets: fonts/$fontName")
             } catch (e: Exception) {
                 Log.e(TAG, "❌ Font file not found in assets: fonts/$fontName", e)
-                throw Exception("Font file not found: $fontName")
+                throw kotlin.Exception("Font file not found: $fontName")
             }
             
             // Phương pháp ưu tiên: Copy font vào cache và sử dụng đường dẫn file thực
@@ -1554,7 +1566,7 @@ class PdfExportHelper(private val context: Context) {
             
             // Kiểm tra file đã được copy thành công
             if (!tempFile.exists() || tempFile.length() == 0L) {
-                throw Exception("Font file copy failed or empty: ${tempFile.absolutePath}")
+                throw kotlin.Exception("Font file copy failed or empty: ${tempFile.absolutePath}")
             }
             
             // Sử dụng đường dẫn file thực với IDENTITY_H để hỗ trợ đầy đủ Unicode
@@ -1583,7 +1595,7 @@ class PdfExportHelper(private val context: Context) {
                 inputStream.close()
                 
                 if (bytes.isEmpty()) {
-                    throw Exception("Font file is empty: $fontName")
+                    throw kotlin.Exception("Font file is empty: $fontName")
                 }
                 
                 Log.d(TAG, "📦 Font bytes loaded. Size: ${bytes.size} bytes")
