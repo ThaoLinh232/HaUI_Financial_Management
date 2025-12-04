@@ -34,6 +34,6 @@
     <item
         android:id="@+id/frag_profile"
         android:iconTint="@color/orange"
-        android:icon="@drawable/ic_31"
+        android:icon="@drawable/ic_people"
         android:title="@string/profile"/>
 </menu>
