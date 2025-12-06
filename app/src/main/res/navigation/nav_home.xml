@@ -28,6 +28,50 @@
             app:argType="integer" />
     </fragment>
     <fragment
+        android:id="@+id/frag_wallet"
+        android:name="com.qltc.finace.view.main.wallet.FragmentWallet"
+        android:label="Khoản nợ">
+        <action
+            android:id="@+id/action_frag_wallet_to_loan_detail"
+            app:destination="@+id/frag_loan_detail" />
+
+        <action
+            android:id="@+id/action_frag_wallet_to_add_transaction"
+            app:destination="@+id/frag_add_transaction" />
+
+        <action
+            android:id="@+id/action_add_transaction_to_wallet"
+            app:popUpTo="@id/frag_wallet"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_loan_detail"
+        android:name="com.qltc.finace.view.main.wallet.detail.FragmentLoanDetail"
+        android:label="Chi tiết khoản vay">
+        <argument
+            android:name="loan_id"
+            app:argType="string" />
+        <argument
+            android:name="loan_title"
+            app:argType="string" />
+
+        <action
+            android:id="@+id/action_loan_detail_to_wallet"
+            app:popUpTo="@id/frag_wallet"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/frag_add_transaction"
+        android:name="com.qltc.finace.view.main.wallet.add.FragmentAddTransaction"
+        android:label="Thêm giao dịch">
+        <argument
+            android:name="loan_id"
+            app:argType="string"
+            android:defaultValue="" />
+    </fragment>
+    <fragment
         android:id="@+id/frag_notebook"
         android:name="com.qltc.finace.view.main.webview.FragmentWebView"
         android:label="NotebookLM">
@@ -92,5 +136,6 @@
         android:id="@+id/frag_app_information"
         android:name="com.qltc.finace.view.main.information.AppInformationFragment"
         android:label="Thông tin ứng dụng" />
+
 
 </navigation>

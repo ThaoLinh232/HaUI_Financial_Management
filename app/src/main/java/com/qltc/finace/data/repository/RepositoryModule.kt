@@ -6,6 +6,8 @@ import com.qltc.finace.data.repository.local.expense.ExpenseRepository
 import com.qltc.finace.data.repository.local.expense.ExpenseRepositoryImp
 import com.qltc.finace.data.repository.local.income.InComeRepository
 import com.qltc.finace.data.repository.local.income.InComeRepositoryImp
+import com.qltc.finace.data.repository.local.loan.LoanRepository
+import com.qltc.finace.data.repository.local.loan.LoanRepositoryImp
 import dagger.Binds
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
@@ -19,4 +21,6 @@ abstract class RepositoryModule {
     abstract fun provideCategoryRepository(categoryRepositoryImp: CategoryRepositoryImp) : CategoryRepository
     @Binds
     abstract fun provideIncomeRepository(incomeRepositoryImp: InComeRepositoryImp) : InComeRepository
+    @Binds
+    abstract fun provideLoanRepository(loanRepositoryImp: LoanRepositoryImp) : LoanRepository
 }

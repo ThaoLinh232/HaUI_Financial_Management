@@ -76,6 +76,10 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
                             navController?.navigate(R.id.frag_report)
                             true
                         }
+                        R.id.frag_wallet -> {
+                            navController?.navigate(R.id.frag_wallet)
+                            true
+                        }
 //                        R.id.frag_notebook -> {
 //                            NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
 //                            true
@@ -102,6 +106,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
 //                    R.id.frag_enter,
                     R.id.frag_calendar,
                     R.id.frag_report,
+                    R.id.frag_wallet,
                     R.id.frag_notebook,
                     R.id.frag_profile -> {
                         viewBinding.bottomNav.visibility = View.VISIBLE
@@ -134,6 +139,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
 //                            R.id.frag_enter,
                             R.id.frag_calendar,
                             R.id.frag_report,
+                            R.id.frag_wallet,
                             R.id.frag_notebook,
                             R.id.frag_profile -> {
                                 viewBinding.bottomNav.visibility = View.VISIBLE
