@@ -51,15 +51,24 @@ class WalletViewModel @Inject constructor(
                 val loans = loanRepository.getAllLoans()
                 Log.d(TAG, "Loans loaded from repository: ${loans.size} items")
 
-                loans.forEachIndexed { index, loan ->
-                    Log.d(TAG, "Loan $index: ${loan.title}, ID: ${loan.idLoan}, Amount: ${loan.amount}")
+                // Sắp xếp: ONGOING lên trên, PAID xuống dưới
+                val sortedLoans = loans.sortedWith(compareBy<Loan> { 
+                    // STATUS_PAID = 1, STATUS_ONGOING = 0 (ONGOING lên trước)
+                    if (it.status == Loan.STATUS_PAID) 1 else 0
+                }.thenByDescending { 
+                    // Trong cùng status, sắp xếp theo ngày tạo mới nhất
+                    it.date ?: ""
+                })
+
+                sortedLoans.forEachIndexed { index, loan ->
+                    Log.d(TAG, "Loan $index: ${loan.title}, Status: ${loan.status}, ID: ${loan.idLoan}")
                 }
 
                 withContext(Dispatchers.Main) {
-                    _loanList.value = loans
-                    calculateTotals(loans)
+                    _loanList.value = sortedLoans
+                    calculateTotals(sortedLoans)
                     _isLoading.value = false
-                    Log.d(TAG, "LiveData updated successfully with ${loans.size} loans")
+                    Log.d(TAG, "LiveData updated successfully with ${sortedLoans.size} loans")
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error loading loans", e)

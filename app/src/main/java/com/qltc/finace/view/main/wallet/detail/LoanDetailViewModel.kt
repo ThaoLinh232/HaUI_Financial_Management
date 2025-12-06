@@ -1,5 +1,6 @@
 package com.qltc.finace.view.main.wallet.detail
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -34,23 +35,32 @@ class LoanDetailViewModel @Inject constructor(
     val paymentSuccess: LiveData<Boolean> = _paymentSuccess
 
     fun loadLoanDetail(idLoan: String) {
+        Log.d("LoanDetailViewModel", "loadLoanDetail called with ID: $idLoan")
         viewModelScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Main) {
                 _isLoading.value = true
             }
 
+            Log.d("LoanDetailViewModel", "Fetching loan from repository...")
             val loanData = loanRepository.getLoanById(idLoan)
+            Log.d("LoanDetailViewModel", "Loan fetched: ${loanData?.idLoan}, title: ${loanData?.title}")
+            
             val payments = if (loanData != null) {
+                Log.d("LoanDetailViewModel", "Fetching payments for loan...")
                 loanRepository.getAllPaymentsByLoan(idLoan)
             } else {
+                Log.e("LoanDetailViewModel", "Loan data is NULL, no payments fetched")
                 emptyList()
             }
+            Log.d("LoanDetailViewModel", "Payments fetched: ${payments.size} items")
 
             withContext(Dispatchers.Main) {
+                Log.d("LoanDetailViewModel", "Updating LiveData...")
                 _loan.value = loanData
                 _paymentHistory.value = payments.sortedByDescending { it.date }
                 _remainingAmount.value = loanData?.getRemainingAmount() ?: 0L
                 _isLoading.value = false
+                Log.d("LoanDetailViewModel", "LiveData updated: loan=${_loan.value?.title}, payments=${payments.size}")
             }
         }
     }

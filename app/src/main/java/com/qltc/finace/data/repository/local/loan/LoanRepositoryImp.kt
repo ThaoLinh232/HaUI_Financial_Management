@@ -51,22 +51,35 @@ class LoanRepositoryImp @Inject constructor(
     }
 
     override suspend fun getLoanById(idLoan: String): Loan? {
-        if (user == null) return null
+        if (user == null) {
+            Log.e("LoanRepository", "getLoanById: User is null")
+            return null
+        }
 
+        Log.d("LoanRepository", "getLoanById: Fetching loan with ID: $idLoan for user: ${user!!.uid}")
         var loan: Loan? = null
-        db.collection(Fb.Loan)
-            .document(idLoan)
-            .get()
-            .addOnSuccessListener { document ->
-                if (document.exists()) {
-                    loan = document.toObject(Loan::class.java)
-                    loan?.idLoan = document.id
-                }
+        
+        try {
+            // Use query with idUser filter to satisfy Firestore rules
+            val querySnapshot = db.collection(Fb.Loan)
+                .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
+                .get()
+                .await()
+            
+            // Find the document with matching ID
+            val document = querySnapshot.documents.find { it.id == idLoan }
+            
+            if (document != null && document.exists()) {
+                Log.d("LoanRepository", "getLoanById: Document found")
+                loan = document.toObject(Loan::class.java)
+                loan?.idLoan = document.id
+                Log.d("LoanRepository", "getLoanById: Loan loaded - title: ${loan?.title}, amount: ${loan?.amount}")
+            } else {
+                Log.e("LoanRepository", "getLoanById: Document not found with ID: $idLoan")
             }
-            .addOnFailureListener { e ->
-                Log.e("LoanRepository", "getLoanById failed: ${e.message}")
-            }
-            .await()
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "getLoanById failed: ${e.message}", e)
+        }
 
         return loan
     }
@@ -211,24 +224,31 @@ class LoanRepositoryImp @Inject constructor(
     // ===== LOAN PAYMENT CRUD =====
 
     override suspend fun getAllPaymentsByLoan(idLoan: String): MutableList<LoanPayment> {
-        if (user == null) return mutableListOf()
+        if (user == null) {
+            Log.e("LoanRepository", "getAllPaymentsByLoan: User is null")
+            return mutableListOf()
+        }
 
+        Log.d("LoanRepository", "getAllPaymentsByLoan: Fetching payments for loan: $idLoan")
         val listPayment = mutableListOf<LoanPayment>()
-        db.collection(Fb.LoanPayment)
-            .whereEqualTo("idLoan", idLoan)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                querySnapshot.documents.forEach { document ->
-                    document.toObject(LoanPayment::class.java)?.let { payment ->
-                        payment.idPayment = document.id
-                        listPayment.add(payment)
-                    }
+        
+        try {
+            val querySnapshot = db.collection(Fb.LoanPayment)
+                .whereEqualTo("idUser", user!!.uid)  // MUST filter by idUser first for Firestore rules
+                .whereEqualTo("idLoan", idLoan)      // Then filter by idLoan
+                .get()
+                .await()
+            
+            querySnapshot.documents.forEach { document ->
+                document.toObject(LoanPayment::class.java)?.let { payment ->
+                    payment.idPayment = document.id
+                    listPayment.add(payment)
                 }
             }
-            .addOnFailureListener { e ->
-                Log.e("LoanRepository", "getAllPaymentsByLoan failed: ${e.message}")
-            }
-            .await()
+            Log.d("LoanRepository", "getAllPaymentsByLoan: Found ${listPayment.size} payments")
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "getAllPaymentsByLoan failed: ${e.message}", e)
+        }
 
         return listPayment
     }

@@ -1,6 +1,7 @@
 package com.qltc.finace.view.main.wallet.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.viewModels
@@ -33,9 +34,10 @@ class FragmentLoanDetail : BaseFragment<FragmentWalletDetailBinding, LoanDetailV
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // SỬA: Lấy arguments theo cách truyền thống
+        // Lấy loan_id từ arguments
         loanId = arguments?.getString("loan_id")
-        val loanTitle = arguments?.getString("loan_title")
+        Log.d("FragmentLoanDetail", "Received loan_id: $loanId")
+        Log.d("FragmentLoanDetail", "All arguments: ${arguments?.keySet()?.joinToString()}")
 
         if (loanId.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Lỗi: Không tìm thấy thông tin khoản vay", Toast.LENGTH_SHORT).show()
@@ -43,18 +45,17 @@ class FragmentLoanDetail : BaseFragment<FragmentWalletDetailBinding, LoanDetailV
             return
         }
 
-        setupViews(loanTitle)
+        setupViews()
         observeData()
+        Log.d("FragmentLoanDetail", "Loading loan detail for ID: $loanId")
         viewModel.loadLoanDetail(loanId!!)
     }
 
-    private fun setupViews(loanTitle: String?) {
+    private fun setupViews() {
         viewBinding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@FragmentLoanDetail.viewModel
             listener = this@FragmentLoanDetail
-
-            tvLoanTitle.text = loanTitle ?: "Chi tiết khoản vay"
 
             rvTransactions.apply {
                 layoutManager = LinearLayoutManager(requireContext())
@@ -68,18 +69,35 @@ class FragmentLoanDetail : BaseFragment<FragmentWalletDetailBinding, LoanDetailV
 
     private fun observeData() {
         viewModel.loan.observe(viewLifecycleOwner) { loan ->
+            Log.d("FragmentLoanDetail", "Loan data received: ${loan?.idLoan}, title: ${loan?.title}")
             loan?.let {
+                Log.d("FragmentLoanDetail", "Updating UI with loan data: amount=${loan.amount}, paid=${loan.paidAmount}")
                 viewBinding.apply {
+                    // Hiển thị tiêu đề
+                    tvLoanTitle.text = loan.title ?: "Chi tiết khoản vay"
+                    
+                    // Thời gian tạo
                     tvTime.text = loan.date ?: "N/A"
+                    
+                    // Thời gian trả dự kiến
                     tvDueDate.text = loan.dueDate ?: "Chưa xác định"
+                    
+                    // Tổng số tiền
                     tvTotal.text = "${numberFormat.format(loan.amount ?: 0L)} đ"
-                    tvInterest.text = "${numberFormat.format(loan.paidAmount ?: 0L)}đ"
+                    
+                    // Tiền đã trả
+                    tvInterest.text = "${numberFormat.format(loan.paidAmount ?: 0L)} đ"
 
+                    // Số tiền còn lại
                     val remaining = loan.getRemainingAmount()
-                    tvRemaining.text = "${numberFormat.format(remaining)}đ"
+                    tvRemaining.text = "${numberFormat.format(remaining)} đ"
 
+                    // Kiểm tra trạng thái để enable/disable nút trả nợ
                     btnPay.isEnabled = loan.status != com.qltc.finace.data.entity.Loan.STATUS_PAID
                 }
+                Log.d("FragmentLoanDetail", "UI updated successfully")
+            } ?: run {
+                Log.e("FragmentLoanDetail", "Loan data is NULL")
             }
         }
 
@@ -91,6 +109,8 @@ class FragmentLoanDetail : BaseFragment<FragmentWalletDetailBinding, LoanDetailV
         viewModel.paymentSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
                 Toast.makeText(requireContext(), "Trả nợ thành công", Toast.LENGTH_SHORT).show()
+                // Refresh data sau khi trả nợ thành công
+                loanId?.let { viewModel.loadLoanDetail(it) }
             } else {
                 Toast.makeText(requireContext(), "Trả nợ thất bại", Toast.LENGTH_SHORT).show()
             }
