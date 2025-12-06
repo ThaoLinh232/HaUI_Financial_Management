@@ -13,6 +13,7 @@ import com.qltc.finace.data.entity.Loan
 import com.qltc.finace.databinding.AddTransactionBinding
 import com.qltc.finace.view.adapter.AdapterTransactionType
 import com.qltc.finace.view.adapter.TransactionType
+import com.qltc.finace.view.main.wallet.add.TransactionSourceDialog
 import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -96,6 +97,39 @@ class FragmentAddTransaction : BaseFragment<AddTransactionBinding, AddTransactio
         viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
+        
+        // MVVM: Observer for source loan selection requirement
+        viewModel.requireSourceLoanSelection.observe(viewLifecycleOwner) { loanType ->
+            if (loanType != null) {
+                showTransactionSourceDialog(loanType)
+            }
+        }
+        
+        // MVVM: Observer for selected source loan
+        viewModel.selectedSourceLoan.observe(viewLifecycleOwner) { loan ->
+            loan?.let {
+                Toast.makeText(
+                    requireContext(), 
+                    "Đã chọn: ${it.title}", 
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+    
+    // MVVM: View only displays dialog, logic is in ViewModel
+    private fun showTransactionSourceDialog(loanType: String) {
+        val loans = viewModel.allLoans.value ?: emptyList()
+        
+        TransactionSourceDialog(
+            context = requireContext(),
+            loanType = loanType,
+            loans = loans,
+            onLoanSelected = { loan ->
+                // MVVM: Notify ViewModel about user action
+                viewModel.onSourceLoanSelected(loan)
+            }
+        ).show()
     }
 
     private fun showDatePicker(isStartDate: Boolean) {
@@ -158,6 +192,7 @@ class FragmentAddTransaction : BaseFragment<AddTransactionBinding, AddTransactio
     }
 
     override fun onSelectTransactionType(type: TransactionType) {
-        viewModel.setLoanType(type.type)
+        // MVVM: Delegate business logic to ViewModel
+        viewModel.onLoanTypeSelected(type.type)
     }
 }
