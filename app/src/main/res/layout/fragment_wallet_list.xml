@@ -39,8 +39,6 @@
             android:layout_marginStart="@dimen/dp20" />
 
         <!-- RecyclerView for loan list -->
-
-        <!-- Floating Action Button -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_loans"
             android:layout_width="0dp"
@@ -50,14 +48,43 @@
             android:clipToPadding="false"
             android:paddingBottom="@dimen/dp80"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/item_list_loan" />
 
+        <!-- Empty State -->
+        <LinearLayout
+            android:id="@+id/layout_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/rv_loans"
+            app:layout_constraintBottom_toBottomOf="@id/rv_loans"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa có khoản vay nào"
+                android:textSize="@dimen/sp16"
+                android:textColor="@color/xam" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp8"
+                android:text="Nhấn nút + để thêm khoản vay mới"
+                android:textSize="@dimen/sp14"
+                android:textColor="@color/xam" />
+        </LinearLayout>
+
+        <!-- Floating Action Button -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_loan"
             android:layout_width="wrap_content"

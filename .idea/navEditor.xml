@@ -113,6 +113,30 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="frag_add_transaction">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="368" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="frag_app_information">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="frag_calendar">
                     <value>
                       <LayoutPositions>
@@ -161,6 +185,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="frag_expense">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="12" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="frag_help">
                     <value>
                       <LayoutPositions>
@@ -192,6 +228,18 @@
                           <Point>
                             <option name="x" value="14" />
                             <option name="y" value="1344" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="frag_loan_detail">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="256" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -233,6 +281,32 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="frag_wallet">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="12" />
+                            <option name="y" value="54" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_frag_wallet_to_add_transaction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_frag_wallet_to_loan_detail">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="frag_webview">
                     <value>
                       <LayoutPositions>
@@ -240,18 +314,6 @@
                           <Point>
                             <option name="x" value="12" />
                             <option name="y" value="1037" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="fragmentExpense">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="242" />
-                            <option name="y" value="1339" />
                           </Point>
                         </option>
                       </LayoutPositions>
