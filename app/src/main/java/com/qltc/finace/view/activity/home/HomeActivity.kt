@@ -29,7 +29,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
     private lateinit var googleSignInClient: GoogleSignInClient
     private var navHostFragment: NavHostFragment? = null
     private var navController: NavController? = null
-    val headerDrawer: NavHeaderMainBinding by lazy { NavHeaderMainBinding.bind(viewBinding.navigationViewDrawer.getHeaderView(0)) }
+//    val headerDrawer: NavHeaderMainBinding by lazy { NavHeaderMainBinding.bind(viewBinding.navigationViewDrawer.getHeaderView(0)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
             setContentView(viewBinding.root)
             setupNavigation()
             setupKeyboardVisibilityListener()
-            setupDrawerLayout()
+//            setupDrawerLayout()
         } catch (e: Exception) {
             // Nếu có lỗi khởi tạo, quay về màn Authentication
             startActivity(Intent(this, AuthenticationActivity::class.java))
@@ -76,16 +76,20 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
                             navController?.navigate(R.id.frag_report)
                             true
                         }
-                        R.id.frag_notebook -> {
-                            NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
+//                        R.id.frag_notebook -> {
+//                            NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
+//                            true
+//                        }
+////                        R.id.frag_profile -> {
+//                            viewBinding.drawer.openDrawer(GravityCompat.END)
+//                            false
+//                        }
+                        R.id.frag_profile -> {
+                            navController?.navigate(R.id.frag_profile)
                             true
                         }
-                        R.id.frag_profile -> {
-                            viewBinding.drawer.openDrawer(GravityCompat.END)
-                            false
-                        }
                         else -> {
-                            viewBinding.drawer.openDrawer(GravityCompat.END)
+//                            viewBinding.drawer.openDrawer(GravityCompat.END)
                             false
                         }
                     }
@@ -146,67 +150,67 @@ class HomeActivity : BaseActivity<ActivityMainBinding, HomeActivityViewModel>() 
         }
     }
 
-    private fun setupDrawerLayout() {
-        headerDrawer.lifecycleOwner = this
-        viewModel.getUserNameCurrent()
-        headerDrawer.viewModel = viewModel
-        viewBinding.navigationViewDrawer.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.item_drawer_home -> {
-                    navController?.navigate(R.id.frag_home)
-                    true
-                }
-                R.id.item_drawer_enter -> {
-                    navController?.navigate(R.id.frag_enter)
-                    true
-                }
-                R.id.item_drawer_calendar -> {
-                    navController?.navigate(R.id.frag_calendar)
-                    true
-                }
-                R.id.item_drawer_report -> {
-                    navController?.navigate(R.id.frag_report)
-                    true
-                }
-
-                R.id.item_drawer_notebook -> {
-                    // Show option dialog for drawer access as well
-                    NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
-                    true
-                }
-
-                R.id.item_drawer_pdf -> {
-                    navController?.navigate(R.id.frg_export_pdf)
-                    true
-                }
-
-                R.id.item_drawer_excel -> {
-                    // Handle setting functionality
-                    true
-                }
-
-                R.id.item_drawer_share -> {
-                    // Handle share functionality
-                    true
-                }
-                R.id.item_drawer_infor -> {
-                    navController?.navigate(R.id.frag_app_information)
-                    true
-                }
-                R.id.item_drawer_faq -> {
-                    navController?.navigate(R.id.frag_FAQ)
-                    true
-                }
-                R.id.item_drawer_account -> {
-                    navController?.navigate(R.id.frag_profile)
-                    true
-                }
-                else -> false
-            }
-            viewBinding.drawer.closeDrawers()
-            true
-        }
-    }
+//    private fun setupDrawerLayout() {
+//        headerDrawer.lifecycleOwner = this
+//        viewModel.getUserNameCurrent()
+//        headerDrawer.viewModel = viewModel
+//        viewBinding.navigationViewDrawer.setNavigationItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.item_drawer_home -> {
+//                    navController?.navigate(R.id.frag_home)
+//                    true
+//                }
+//                R.id.item_drawer_enter -> {
+//                    navController?.navigate(R.id.frag_enter)
+//                    true
+//                }
+//                R.id.item_drawer_calendar -> {
+//                    navController?.navigate(R.id.frag_calendar)
+//                    true
+//                }
+//                R.id.item_drawer_report -> {
+//                    navController?.navigate(R.id.frag_report)
+//                    true
+//                }
+//
+//                R.id.item_drawer_notebook -> {
+//                    // Show option dialog for drawer access as well
+//                    NotebookLMOptionDialog.showOpenOptions(this@HomeActivity, navController)
+//                    true
+//                }
+//
+//                R.id.item_drawer_pdf -> {
+//                    navController?.navigate(R.id.frg_export_pdf)
+//                    true
+//                }
+//
+//                R.id.item_drawer_excel -> {
+//                    // Handle setting functionality
+//                    true
+//                }
+//
+//                R.id.item_drawer_share -> {
+//                    // Handle share functionality
+//                    true
+//                }
+//                R.id.item_drawer_infor -> {
+//                    navController?.navigate(R.id.frag_app_information)
+//                    true
+//                }
+//                R.id.item_drawer_faq -> {
+//                    navController?.navigate(R.id.frag_FAQ)
+//                    true
+//                }
+//                R.id.item_drawer_account -> {
+//                    navController?.navigate(R.id.frag_profile)
+//                    true
+//                }
+//                else -> false
+//            }
+//            viewBinding.drawer.closeDrawers()
+//            true
+//        }
+//    }
 
     fun signOutFromGoogle() {
         try {

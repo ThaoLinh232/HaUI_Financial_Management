@@ -26,14 +26,14 @@
         android:title="@string/report" />
 
     <item
-        android:id="@+id/frag_notebook"
+        android:id="@+id/frag_wallet"
         android:iconTint="@color/orange"
-        android:icon="@drawable/ic_notebooklm"
-        android:title="@string/notebooklm" />
+        android:icon="@drawable/ic_wallet"
+        android:title="Khoản nợ" />
 
     <item
         android:id="@+id/frag_profile"
         android:iconTint="@color/orange"
-        android:icon="@drawable/ic_31"
+        android:icon="@drawable/ic_people"
         android:title="@string/profile"/>
 </menu>

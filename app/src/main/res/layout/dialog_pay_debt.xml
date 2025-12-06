@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/dp16"
+    app:cardElevation="@dimen/dp4"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp20">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trả nợ"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            android:textColor="@color/black80"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/dp15" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_line"
+            android:layout_marginBottom="@dimen/dp15" />
+
+        <!-- Amount Section -->
+        <TextView
+            android:id="@+id/tv_amount_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số tiền:"
+            android:textSize="@dimen/sp14"
+            android:textColor="@color/black80"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp8" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_amount"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp15"
+            app:boxCornerRadiusBottomEnd="@dimen/dp10"
+            app:boxCornerRadiusTopEnd="@dimen/dp10"
+            app:boxCornerRadiusTopStart="@dimen/dp10"
+            app:boxCornerRadiusBottomStart="@dimen/dp10"
+            app:boxStrokeColor="@color/color_AFB0B6"
+            app:boxStrokeWidth="@dimen/dp1"
+            app:hintTextColor="@color/color_AFB0B6">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập số tiền"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/sp14"
+                android:lines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Date Section -->
+        <TextView
+            android:id="@+id/tv_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ngày:"
+            android:textSize="@dimen/sp14"
+            android:textColor="@color/black80"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/dp8" />
+
+        <!-- Calendar -->
+        <CalendarView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="280dp"
+            android:layout_marginBottom="@dimen/dp15" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hủy"
+                android:textColor="@color/xam"
+                android:layout_marginEnd="@dimen/dp12"
+                android:paddingHorizontal="@dimen/dp20"
+                android:paddingVertical="@dimen/dp10"
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lưu"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:backgroundTint="@color/orange"
+                app:cornerRadius="@dimen/dp10"
+                android:paddingHorizontal="@dimen/dp20"
+                android:paddingVertical="@dimen/dp10" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

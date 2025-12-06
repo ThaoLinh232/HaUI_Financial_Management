@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="listener"
+            type="com.qltc.finace.view.main.wallet.add.AddTransactionListener" />
+        <variable
+            name="viewModel"
+            type="com.qltc.finace.view.main.wallet.add.AddTransactionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <!-- Toolbar -->
+        <include
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!-- Back Button -->
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_back"
+            android:padding="@dimen/dp10"
+            android:onClick="@{v -> listener.onClickBack()}"
+            android:layout_marginStart="@dimen/dp10"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+        <!-- Save Button -->
+        <ImageButton
+            android:id="@+id/btn_save_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/dp15"
+            android:textSize="@dimen/sp18"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{v -> listener.onClickSave()}"
+            android:textColor="@color/black80"
+            android:layout_marginEnd="@dimen/dp15"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar" />
+
+        <!-- Header Title -->
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Thêm giao dịch"
+            android:textSize="@dimen/sp18"
+            android:textStyle="bold"
+            android:textColor="@color/black80"
+            android:layout_marginStart="@dimen/dp25"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back"
+            app:layout_constraintStart_toEndOf="@id/btn_back"
+            app:layout_constraintTop_toTopOf="@id/btn_back" />
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintBottom_toTopOf="@id/bottom_nav"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/dp20"
+                android:paddingTop="@dimen/dp15"
+                android:paddingBottom="@dimen/dp20">
+
+                <!-- Date Section -->
+                <TextView
+                    android:id="@+id/tv_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày:"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black80"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopStart="@dimen/dp10"
+                    app:boxCornerRadiusBottomStart="@dimen/dp10"
+                    app:boxStrokeColor="@color/color_AFB0B6"
+                    app:boxStrokeWidth="@dimen/dp1"
+                    app:hintTextColor="@color/color_AFB0B6"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_calendar"
+                    app:layout_constraintTop_toBottomOf="@id/tv_date_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập ngày"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:textSize="@dimen/sp14"
+                        android:lines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Amount Section -->
+                <TextView
+                    android:id="@+id/tv_amount_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số tiền"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black80"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp15"
+                    app:layout_constraintTop_toBottomOf="@id/til_date"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_amount"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopStart="@dimen/dp10"
+                    app:boxCornerRadiusBottomStart="@dimen/dp10"
+                    app:boxStrokeColor="@color/color_AFB0B6"
+                    app:boxStrokeWidth="@dimen/dp1"
+                    app:hintTextColor="@color/color_AFB0B6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_amount_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập số tiền"
+                        android:inputType="numberDecimal"
+                        android:textSize="@dimen/sp14"
+                        android:lines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Group Section -->
+                <TextView
+                    android:id="@+id/tv_group_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nhóm:"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black80"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp15"
+                    app:layout_constraintTop_toBottomOf="@id/til_amount"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <!-- Transaction Type Buttons -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_transaction_types"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp10"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="4"
+                    app:layout_constraintTop_toBottomOf="@id/tv_group_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:listitem="@layout/item_transaction_type" />
+
+                <!-- Note Section -->
+                <TextView
+                    android:id="@+id/tv_note_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ghi chú:"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black80"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp15"
+                    app:layout_constraintTop_toBottomOf="@id/rv_transaction_types"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_note"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopStart="@dimen/dp10"
+                    app:boxCornerRadiusBottomStart="@dimen/dp10"
+                    app:boxStrokeColor="@color/color_AFB0B6"
+                    app:boxStrokeWidth="@dimen/dp1"
+                    app:hintTextColor="@color/color_AFB0B6"
+                    app:layout_constraintTop_toBottomOf="@id/tv_note_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập ghi chú"
+                        android:inputType="textMultiLine"
+                        android:minLines="3"
+                        android:gravity="top"
+                        android:textSize="@dimen/sp14" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Expected Return Date -->
+                <TextView
+                    android:id="@+id/tv_return_date_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ngày trả dự kiến:"
+                    android:textSize="@dimen/sp16"
+                    android:textColor="@color/black80"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/dp15"
+                    app:layout_constraintTop_toBottomOf="@id/til_note"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_return_date"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp8"
+                    app:boxCornerRadiusBottomEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopEnd="@dimen/dp10"
+                    app:boxCornerRadiusTopStart="@dimen/dp10"
+                    app:boxCornerRadiusBottomStart="@dimen/dp10"
+                    app:boxStrokeColor="@color/color_AFB0B6"
+                    app:boxStrokeWidth="@dimen/dp1"
+                    app:hintTextColor="@color/color_AFB0B6"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_calendar"
+                    app:layout_constraintTop_toBottomOf="@id/tv_return_date_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_return_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nhập ngày"
+                        android:inputType="none"
+                        android:focusable="false"
+                        android:textSize="@dimen/sp14"
+                        android:lines="1" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Save Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_save"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp50"
+                    android:text="Lưu"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp16"
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/orange"
+                    app:cornerRadius="@dimen/dp10"
+                    android:onClick="@{v -> listener.onClickSave()}"
+                    android:layout_marginTop="@dimen/dp25"
+                    app:layout_constraintTop_toBottomOf="@id/til_return_date"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <!-- Bottom Navigation -->
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp64"
+            android:background="@color/toolbar_EDEDED"
+            android:elevation="@dimen/dp3"
+            android:translationZ="@dimen/dp3"
+            app:itemIconSize="@dimen/dp28"
+            app:itemTextColor="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_navigation" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
