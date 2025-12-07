@@ -108,17 +108,35 @@ class ReportViewModel @Inject constructor(
 
     fun prepareDataPieChartExpenseByMonth(month: YearMonth) {
         viewModelScope.launch(Dispatchers.IO) {
-            val listCategoryExpenseDetailOfMonthDec: MutableList<CategoryExpenseDetail> =
-                getExpenseWithCategoryOfMonth(month)
-            listCategoryExpenseDetailOfMonthDec.sortByDescending { it.totalAmount }
+            try {
+                // Đảm bảo listCategory đã được load
+                if (listCategory.isEmpty()) {
+                    Log.w(TAG, "prepareDataPieChartExpenseByMonth: listCategory is empty, loading categories first...")
+                    val lCategory = categoryRepository.getAll()
+                    withContext(Dispatchers.Main) {
+                        listCategory = lCategory
+                        Log.d(TAG, "Categories loaded: ${listCategory.size} categories")
+                    }
+                }
+                
+                val listCategoryExpenseDetailOfMonthDec: MutableList<CategoryExpenseDetail> =
+                    getExpenseWithCategoryOfMonth(month)
+                listCategoryExpenseDetailOfMonthDec.sortByDescending { it.totalAmount }
 
-            val listPieEntry = addItemEntry(listCategoryExpenseDetailOfMonthDec)
-            addItemEntryOther(listCategoryExpenseDetailOfMonthDec)?.let {
-                listPieEntry.add(POSITION_ITEM_OTHER,it)
-            }
-            withContext(Dispatchers.Main) {
-                this@ReportViewModel.listCategoryExpenseDetailDec = listCategoryExpenseDetailOfMonthDec
-                this@ReportViewModel.dataPieChar.value = listPieEntry
+                val listPieEntry = addItemEntry(listCategoryExpenseDetailOfMonthDec)
+                addItemEntryOther(listCategoryExpenseDetailOfMonthDec)?.let {
+                    listPieEntry.add(POSITION_ITEM_OTHER, it)
+                }
+                withContext(Dispatchers.Main) {
+                    this@ReportViewModel.listCategoryExpenseDetailDec = listCategoryExpenseDetailOfMonthDec
+                    this@ReportViewModel.dataPieChar.value = listPieEntry
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error preparing expense pie chart data: ${e.message}", e)
+                // Đảm bảo không crash app, trả về empty list
+                withContext(Dispatchers.Main) {
+                    this@ReportViewModel.dataPieChar.value = mutableListOf()
+                }
             }
         }
     }
@@ -131,12 +149,28 @@ class ReportViewModel @Inject constructor(
     }
     private fun getExpenseWithCategoryOfMonth(month: YearMonth): MutableList<CategoryExpenseDetail> {
         val listExpenseOfMonth = getExpenseByMonth(month)
-        return listExpenseOfMonth.groupBy { it.idCategory }.map { (idCategory, listExpense) ->
-            CategoryExpenseDetail(
-                category = getCategoryObject(idCategory),
-                totalAmount = listExpense.sumExpenseMoney(),
-                listExpense = listExpense
-            )
+        if (listExpenseOfMonth.isEmpty()) {
+            Log.d(TAG, "getExpenseWithCategoryOfMonth: No expenses found for month $month")
+            return mutableListOf()
+        }
+        
+        if (listCategory.isEmpty()) {
+            Log.w(TAG, "getExpenseWithCategoryOfMonth: listCategory is empty, cannot map expenses to categories")
+            return mutableListOf()
+        }
+        
+        return listExpenseOfMonth.groupBy { it.idCategory }.mapNotNull { (idCategory, listExpense) ->
+            val category = getCategoryObject(idCategory)
+            if (category != null) {
+                CategoryExpenseDetail(
+                    category = category,
+                    totalAmount = listExpense.sumExpenseMoney(),
+                    listExpense = listExpense
+                )
+            } else {
+                Log.w(TAG, "Category not found for expense category id: $idCategory. Expense will be skipped.")
+                null
+            }
         }.toMutableList()
     }
 
@@ -191,7 +225,21 @@ class ReportViewModel @Inject constructor(
         return filteredExpenses
     }
 
-    private fun getCategoryObject(idCategory: String?) = listCategory.first { it.idCategory == idCategory }
+    private fun getCategoryObject(idCategory: String?): Category? {
+        if (idCategory.isNullOrBlank()) {
+            Log.w(TAG, "getCategoryObject: idCategory is null or blank")
+            return null
+        }
+        if (listCategory.isEmpty()) {
+            Log.w(TAG, "getCategoryObject: listCategory is empty, cannot find category with id: $idCategory")
+            return null
+        }
+        val category = listCategory.firstOrNull { it.idCategory == idCategory }
+        if (category == null) {
+            Log.w(TAG, "getCategoryObject: Category not found for idCategory: $idCategory. Available categories: ${listCategory.map { it.idCategory }}")
+        }
+        return category
+    }
     private fun addItemEntryOther(list: MutableList<CategoryExpenseDetail>) : PieEntry? {
         if (list.size > MAX_ITEM_IN_PIE_CHART) {
             var total = 0L
@@ -211,19 +259,22 @@ class ReportViewModel @Inject constructor(
     fun prepareRecyclerViewExpense(yearMonth: YearMonth) {
         val l = mutableListOf<CategoryOverView>()
         for (item in listCategoryExpenseDetailDec) {
+            val category = item.category // Lưu vào local variable để tránh smart cast issue
             val lExpense = item.listExpense?.filter { expense ->
                 yearMonth.toString() == expense.getYearMonth()
             }
-            if (lExpense?.size != 0) {
+            if (!lExpense.isNullOrEmpty() && category != null) {
                 val lFinancialRecord =
-                    lExpense?.map { expense -> expense.toFinancialRecord(item.category) }
+                    lExpense.map { expense -> expense.toFinancialRecord(category) }
                 l.add(
                     CategoryOverView(
                         total = item.totalAmount,
-                        category = item.category!!,
+                        category = category,
                         listRecord = lFinancialRecord
                     )
                 )
+            } else if (category == null) {
+                Log.w(TAG, "Category is null for expense item: $item")
             }
         }
         dataRcv.postValue(l)
@@ -268,18 +319,36 @@ class ReportViewModel @Inject constructor(
     // Filter income data by month
     fun filterDataIncomeByMonth(month: YearMonth) {
         viewModelScope.launch(Dispatchers.IO) {
-            val listCategoryIncomeDetailOfMonthDec: MutableList<CategoryIncomeDetail> =
-                getIncomeWithCategoryOfMonth(month)
-            listCategoryIncomeDetailOfMonthDec.sortByDescending { it.totalAmount }
+            try {
+                // Đảm bảo listCategory đã được load
+                if (listCategory.isEmpty()) {
+                    Log.w(TAG, "filterDataIncomeByMonth: listCategory is empty, loading categories first...")
+                    val lCategory = categoryRepository.getAll()
+                    withContext(Dispatchers.Main) {
+                        listCategory = lCategory
+                        Log.d(TAG, "Categories loaded: ${listCategory.size} categories")
+                    }
+                }
+                
+                val listCategoryIncomeDetailOfMonthDec: MutableList<CategoryIncomeDetail> =
+                    getIncomeWithCategoryOfMonth(month)
+                listCategoryIncomeDetailOfMonthDec.sortByDescending { it.totalAmount }
 
-            val listPieEntry = addItemIncomeEntry(listCategoryIncomeDetailOfMonthDec)
-            addItemIncomeEntryOther(listCategoryIncomeDetailOfMonthDec)?.let { pieEntry: PieEntry ->
-                listPieEntry.add(POSITION_ITEM_OTHER, pieEntry)
-            }
-            withContext(Dispatchers.Main) {
-                this@ReportViewModel.dataIncomePieChar.value = listPieEntry
-                // Prepare RecyclerView data after updating pie chart
-                rcvIncomePrepare(month)
+                val listPieEntry = addItemIncomeEntry(listCategoryIncomeDetailOfMonthDec)
+                addItemIncomeEntryOther(listCategoryIncomeDetailOfMonthDec)?.let { pieEntry: PieEntry ->
+                    listPieEntry.add(POSITION_ITEM_OTHER, pieEntry)
+                }
+                withContext(Dispatchers.Main) {
+                    this@ReportViewModel.dataIncomePieChar.value = listPieEntry
+                    // Prepare RecyclerView data after updating pie chart
+                    rcvIncomePrepare(month)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error preparing income pie chart data: ${e.message}", e)
+                // Đảm bảo không crash app, trả về empty list
+                withContext(Dispatchers.Main) {
+                    this@ReportViewModel.dataIncomePieChar.value = mutableListOf()
+                }
             }
         }
     }
@@ -294,14 +363,30 @@ class ReportViewModel @Inject constructor(
 
     private fun getIncomeWithCategoryOfMonth(month: YearMonth): MutableList<CategoryIncomeDetail> {
         val listIncomeOfMonth = getIncomeByMonth(month)
-        return listIncomeOfMonth.groupBy { income: Income -> income.idCategory }.map { entry ->
+        if (listIncomeOfMonth.isEmpty()) {
+            Log.d(TAG, "getIncomeWithCategoryOfMonth: No incomes found for month $month")
+            return mutableListOf()
+        }
+        
+        if (listCategory.isEmpty()) {
+            Log.w(TAG, "getIncomeWithCategoryOfMonth: listCategory is empty, cannot map incomes to categories")
+            return mutableListOf()
+        }
+        
+        return listIncomeOfMonth.groupBy { income: Income -> income.idCategory }.mapNotNull { entry ->
             val idCategory = entry.key
             val listIncome = entry.value
-            CategoryIncomeDetail(
-                category = getCategoryObject(idCategory),
-                totalAmount = listIncome.sumIncomeMoney(),
-                listIncome = listIncome
-            )
+            val category = getCategoryObject(idCategory)
+            if (category != null) {
+                CategoryIncomeDetail(
+                    category = category,
+                    totalAmount = listIncome.sumIncomeMoney(),
+                    listIncome = listIncome
+                )
+            } else {
+                Log.w(TAG, "Category not found for income category id: $idCategory. Income will be skipped.")
+                null
+            }
         }.toMutableList()
     }
 
@@ -328,19 +413,22 @@ class ReportViewModel @Inject constructor(
         val incomesWithCategory = getIncomeWithCategoryOfMonth(yearMonth)
 
         for (item in incomesWithCategory) {
+            val category = item.category // Lưu vào local variable để tránh smart cast issue
             val lIncome = item.listIncome?.filter { income: Income ->
                 yearMonth.toString() == income.getYearMonth()
             }
-            if (!lIncome.isNullOrEmpty()) {
+            if (!lIncome.isNullOrEmpty() && category != null) {
                 val lFinancialRecord =
-                    lIncome.map { income: Income -> income.toFinancialRecord(item.category) }
+                    lIncome.map { income: Income -> income.toFinancialRecord(category) }
                 l.add(
                     CategoryOverView(
                         total = item.totalAmount,
-                        category = item.category!!,
+                        category = category,
                         listRecord = lFinancialRecord
                     )
                 )
+            } else if (category == null) {
+                Log.w(TAG, "Category is null for income item: $item")
             }
         }
         dataIncomeRcv.postValue(l)
