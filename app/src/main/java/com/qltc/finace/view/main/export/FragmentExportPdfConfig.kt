@@ -431,6 +431,7 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
         }
 
         Log.d(TAG, "📋 Display options: Charts=${viewBinding.cbShowCharts.isChecked}, Details=${viewBinding.cbShowDetails.isChecked}, Stats=${viewBinding.cbShowStats.isChecked}")
+        Log.d(TAG, "🔢 Display options value: $displayOptions (Charts bit set: ${(displayOptions and PdfExportHelper.OPTION_SHOW_CHARTS) != 0})")
 
         // Kiểm tra có ít nhất một option được chọn
         if (displayOptions == 0) {
@@ -508,7 +509,23 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
         // 8. Lưu file type để sử dụng sau khi tạo file
         currentFileType = fileType
 
-        // 9. Gọi ViewModel để export đa định dạng
+        // 9. Debug: In thông tin chi tiết
+        Log.d(TAG, "=== PDF EXPORT FINAL CHECK ===")
+        Log.d(TAG, "📤 Final export parameters:")
+        Log.d(TAG, "  - fileName: $fileName")
+        Log.d(TAG, "  - month: $monthYearToExport")
+        Log.d(TAG, "  - reportType: $reportType")
+        Log.d(TAG, "  - fileType: $fileType")
+        Log.d(TAG, "  - displayOptions: $displayOptions")
+        Log.d(TAG, "  - cbShowCharts.isChecked: ${viewBinding.cbShowCharts.isChecked}")
+        Log.d(TAG, "  - expensePieChart: ${if (expensePieChart != null) "✅ Created with ${expensePieChart.data?.entryCount ?: 0} entries" else "❌ Null"}")
+        Log.d(TAG, "  - incomePieChart: ${if (incomePieChart != null) "✅ Created with ${incomePieChart.data?.entryCount ?: 0} entries" else "❌ Null"}")
+        Log.d(TAG, "  - shouldShowCharts: ${(displayOptions and PdfExportHelper.OPTION_SHOW_CHARTS) != 0}")
+        Log.d(TAG, "  - expensePieChart.data?.yValueSum: ${expensePieChart?.data?.yValueSum ?: "N/A"}")
+        Log.d(TAG, "  - incomePieChart.data?.yValueSum: ${incomePieChart?.data?.yValueSum ?: "N/A"}")
+        Log.d(TAG, "=== END DEBUG INFO ===")
+
+        // 10. Gọi ViewModel để export đa định dạng
         Log.d(TAG, "📤 Calling generateFile with fileType: $fileType")
         viewModel.generateFile(
             context = requireContext(),
@@ -528,9 +545,14 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
     private fun createExpensePieChart(month: YearMonth): PieChart? {
         try {
             val expenseData = viewModel.getExpenseDataForMonth(month)
+            Log.d(TAG, "🔍 getExpenseDataForMonth returned: ${expenseData?.size ?: 0} categories")
 
             if (expenseData.isNullOrEmpty()) {
-                Log.d(TAG, "No expense data available for chart")
+                Log.d(TAG, "⚠️ No expense data available for chart in month $month")
+                Log.d(TAG, "   Possible reasons:")
+                Log.d(TAG, "   1. No transactions for this month")
+                Log.d(TAG, "   2. ViewModel data not loaded")
+                Log.d(TAG, "   3. Category data missing")
                 return null
             }
 
@@ -628,10 +650,11 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
 
         Log.d(TAG, "📐 Creating chart with dimensions: ${CHART_WIDTH}x${CHART_HEIGHT}")
 
-        // Tạo biểu đồ và container
+        // Tạo biểu đồ - QUAN TRỌNG: Phải được attach vào parent view để có thể render
         val pieChart = PieChart(requireContext())
-        val container = FrameLayout(requireContext())
-        container.layoutParams = FrameLayout.LayoutParams(CHART_WIDTH, CHART_HEIGHT)
+        val container = FrameLayout(requireContext()).apply {
+            layoutParams = FrameLayout.LayoutParams(CHART_WIDTH, CHART_HEIGHT)
+        }
         container.addView(pieChart, FrameLayout.LayoutParams(CHART_WIDTH, CHART_HEIGHT))
 
         // Cấu hình biểu đồ với các thiết lập tối ưu cho PDF
@@ -789,10 +812,18 @@ class FragmentExportPdfConfig : BaseFragment<FragmentExportPdfConfigBinding, Exp
         // Đảm bảo đủ thời gian để biểu đồ được render hoàn toàn
         Log.d(TAG, "⏳ Waiting for chart to render completely...")
         try {
-            Thread.sleep(600) // Tăng thời gian để đảm bảo render hoàn thiện
+            // QUAN TRỌNG: Tăng thời gian chờ để đảm bảo MPAndroidChart render hoàn toàn
+            Thread.sleep(1000) // Tăng lên 1000ms để cho phép render animation hoàn tất
         } catch (e: InterruptedException) {
             Thread.currentThread().interrupt()
             Log.w(TAG, "⚠️ Chart render wait interrupted")
+        }
+        
+        // Thêm một lần nữa để chắc chắn
+        try {
+            Thread.sleep(300)
+        } catch (e: InterruptedException) {
+            Thread.currentThread().interrupt()
         }
 
         // Kiểm tra cuối cùng

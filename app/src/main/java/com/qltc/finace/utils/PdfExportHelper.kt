@@ -659,6 +659,8 @@ class PdfExportHelper(private val context: Context) {
         try {
             Log.d(TAG, "📊 Starting to add chart to PDF: '$title'")
             Log.d(TAG, "📏 Chart dimensions: width=${chart.width}, height=${chart.height}")
+            Log.d(TAG, "📊 Chart data entries: ${chart.data?.entryCount ?: 0}")
+            Log.d(TAG, "📊 Chart data value sum: ${chart.data?.yValueSum ?: 0f}")
             
             // Tạo font trực tiếp để đảm bảo encoding Unicode cho tiêu đề biểu đồ
             Log.d(TAG, "🔤 Creating chart title with font...")
@@ -692,15 +694,21 @@ class PdfExportHelper(private val context: Context) {
             chart.notifyDataSetChanged()
             chart.invalidate()
             
-            // Đợi một chút để chart render xong
+            // QUAN TRỌNG: Cần thêm thời gian chờ cho animation hoàn tất
+            Log.d(TAG, "⏳ Waiting for chart animation to complete (500ms)...")
             try {
-                Thread.sleep(300) // Tăng thời gian chờ
+                Thread.sleep(500)
             } catch (e: InterruptedException) {
                 Thread.currentThread().interrupt()
             }
             
             // Kiểm tra kích thước chart sau khi prepare
             Log.d(TAG, "📏 Chart dimensions after prepare: width=${chart.width}, height=${chart.height}")
+            
+            if (chart.width <= 0 || chart.height <= 0) {
+                Log.e(TAG, "❌ Chart has invalid dimensions: ${chart.width}x${chart.height}")
+                throw kotlin.Exception("Chart has invalid dimensions after prepare: ${chart.width}x${chart.height}")
+            }
             
             // Tạo bitmap từ chart với chất lượng cao
             Log.d(TAG, "🖼️ Creating bitmap from chart...")
@@ -868,9 +876,14 @@ class PdfExportHelper(private val context: Context) {
                 
                 Log.d(TAG, "📍 Translating chart: translateX=$translateX, translateY=$translateY")
                 
+                // QUAN TRỌNG: Gọi draw method để render biểu đồ
                 view.draw(canvas)
                 canvas.restore()
+                
+                Log.d(TAG, "✅ Chart drawn to canvas with scaling")
             } else {
+                // Draw directly without scaling
+                Log.d(TAG, "✅ Chart drawn to canvas without scaling")
                 view.draw(canvas)
             }
             
@@ -885,6 +898,7 @@ class PdfExportHelper(private val context: Context) {
         } catch (e: Exception) {
             Log.e(TAG, "❌ Error creating bitmap from chart: ${e.message}", e)
             Log.e(TAG, "❌ Exception type: ${e.javaClass.simpleName}")
+            Log.e(TAG, "❌ Chart data: ${view.data?.entryCount ?: 0} entries, value sum: ${view.data?.yValueSum ?: 0f}")
             
             // Nếu có lỗi, tạo một bitmap đơn giản với thông báo lỗi
             return createFallbackBitmap(e.message ?: "Unknown error")

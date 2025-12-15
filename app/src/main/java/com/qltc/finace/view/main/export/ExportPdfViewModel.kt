@@ -135,6 +135,7 @@ class ExportPdfViewModel @Inject constructor(
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {
+                Log.d(TAG, "🔄 Starting to load all data from repositories...")
                 // Fetch all data from repositories
                 val categories = categoryRepository.getAll()
                 val expenses = expenseRepository.getAllExpense()
@@ -146,10 +147,33 @@ class ExportPdfViewModel @Inject constructor(
                     _listIncome = incomes
                     _isDataReady.value = true
                     _isLoading.value = false
-                    Log.d(TAG, "Data loaded: ${categories.size} categories, ${expenses.size} expenses, ${incomes.size} incomes")
+                    
+                    Log.d(TAG, "✅ Data loaded successfully!")
+                    Log.d(TAG, "   📊 Categories: ${categories.size}")
+                    Log.d(TAG, "   💰 Expenses: ${expenses.size}")
+                    Log.d(TAG, "   📈 Incomes: ${incomes.size}")
+                    
+                    // Log sample data
+                    if (expenses.isNotEmpty()) {
+                        Log.d(TAG, "   📝 Sample expenses:")
+                        expenses.take(3).forEach { exp ->
+                            Log.d(TAG, "      - ${exp.date}: ${exp.expense}đ (category: ${exp.idCategory})")
+                        }
+                    } else {
+                        Log.d(TAG, "   ⚠️ No expenses found!")
+                    }
+                    
+                    if (incomes.isNotEmpty()) {
+                        Log.d(TAG, "   📝 Sample incomes:")
+                        incomes.take(3).forEach { inc ->
+                            Log.d(TAG, "      - ${inc.date}: ${inc.income}đ (category: ${inc.idCategory})")
+                        }
+                    } else {
+                        Log.d(TAG, "   ⚠️ No incomes found!")
+                    }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error loading data: ${e.message}", e)
+                Log.e(TAG, "❌ Error loading data: ${e.message}", e)
                 withContext(Dispatchers.Main) {
                     _errorMessage.value = "Không thể tải dữ liệu: ${e.message}"
                     _isLoading.value = false
@@ -397,22 +421,45 @@ class ExportPdfViewModel @Inject constructor(
      */
     fun getExpenseDataForMonth(month: YearMonth): List<CategoryExpenseDetail>? {
         try {
-            if (_listExpense == null || _listExpense.isEmpty() || _listCategory.value.isNullOrEmpty()) {
-                Log.d(TAG, "No expense data available")
+            Log.d(TAG, "🔍 getExpenseDataForMonth: month=$month")
+            Log.d(TAG, "   📊 _listExpense size: ${_listExpense.size}")
+            Log.d(TAG, "   📂 _listCategory size: ${_listCategory.value?.size ?: 0}")
+            Log.d(TAG, "   🔎 _isDataReady: ${_isDataReady.value}")
+            
+            if (_listExpense == null || _listExpense.isEmpty()) {
+                Log.d(TAG, "❌ No expenses data available: isEmpty=${_listExpense.isEmpty()}")
+                return null
+            }
+            
+            if (_listCategory.value.isNullOrEmpty()) {
+                Log.d(TAG, "❌ No categories data available: size=${_listCategory.value?.size ?: 0}")
                 return null
             }
 
             val firstDay = month.atDay(1)
             val lastDay = month.atEndOfMonth()
+            Log.d(TAG, "   📅 Date range: $firstDay to $lastDay")
 
             // Filter expenses for the month
             val expensesForMonth = _listExpense.filter { expense ->
-                val expenseDate = expense.date?.let { LocalDate.parse(it) }
-                expenseDate != null && !expenseDate.isBefore(firstDay) && !expenseDate.isAfter(lastDay)
+                try {
+                    val expenseDate = expense.date?.let { LocalDate.parse(it) }
+                    val isInMonth = expenseDate != null && !expenseDate.isBefore(firstDay) && !expenseDate.isAfter(lastDay)
+                    if (isInMonth) {
+                        Log.d(TAG, "   ✅ Found expense: date=${expense.date}, amount=${expense.expense}đ, category=${expense.idCategory}")
+                    }
+                    isInMonth
+                } catch (e: Exception) {
+                    Log.w(TAG, "   ⚠️ Failed to parse date: ${expense.date}, error: ${e.message}")
+                    false
+                }
             }
 
+            Log.d(TAG, "   🔢 Filtered expenses: ${expensesForMonth.size} out of ${_listExpense.size} total")
+
             if (expensesForMonth.isEmpty()) {
-                Log.d(TAG, "No expenses found for month: $month")
+                Log.d(TAG, "❌ No expenses found for month: $month")
+                Log.d(TAG, "   💡 Sample data: ${_listExpense.take(2)}")
                 return null
             }
 
@@ -433,12 +480,16 @@ class ExportPdfViewModel @Inject constructor(
                             listExpense = expenses
                         )
                     )
+                    Log.d(TAG, "   📊 Category: ${category?.title} - Total: ${totalAmount}đ, Items: ${expenses.size}")
+                } else {
+                    Log.d(TAG, "   ⚠️ Category ${categoryId} has 0 amount")
                 }
             }
 
+            Log.d(TAG, "✅ Expense data ready: ${result.size} categories")
             return result.sortedByDescending { it.totalAmount }
         } catch (e: Exception) {
-            Log.e(TAG, "Error getting expense data for month: ${e.message}", e)
+            Log.e(TAG, "❌ Error getting expense data for month: ${e.message}", e)
             return null
         }
     }
@@ -448,22 +499,44 @@ class ExportPdfViewModel @Inject constructor(
      */
     fun getIncomeDataForMonth(month: YearMonth): List<CategoryIncomeDetail>? {
         try {
-            if (_listIncome == null || _listIncome.isEmpty() || _listCategory.value.isNullOrEmpty()) {
-                Log.d(TAG, "No income data available")
+            Log.d(TAG, "🔍 getIncomeDataForMonth: month=$month")
+            Log.d(TAG, "   📊 _listIncome size: ${_listIncome.size}")
+            Log.d(TAG, "   📂 _listCategory size: ${_listCategory.value?.size ?: 0}")
+            
+            if (_listIncome == null || _listIncome.isEmpty()) {
+                Log.d(TAG, "❌ No incomes data available: isEmpty=${_listIncome.isEmpty()}")
+                return null
+            }
+            
+            if (_listCategory.value.isNullOrEmpty()) {
+                Log.d(TAG, "❌ No categories data available: size=${_listCategory.value?.size ?: 0}")
                 return null
             }
 
             val firstDay = month.atDay(1)
             val lastDay = month.atEndOfMonth()
+            Log.d(TAG, "   📅 Date range: $firstDay to $lastDay")
 
             // Filter incomes for the month
             val incomesForMonth = _listIncome.filter { income ->
-                val incomeDate = income.date?.let { LocalDate.parse(it) }
-                incomeDate != null && !incomeDate.isBefore(firstDay) && !incomeDate.isAfter(lastDay)
+                try {
+                    val incomeDate = income.date?.let { LocalDate.parse(it) }
+                    val isInMonth = incomeDate != null && !incomeDate.isBefore(firstDay) && !incomeDate.isAfter(lastDay)
+                    if (isInMonth) {
+                        Log.d(TAG, "   ✅ Found income: date=${income.date}, amount=${income.income}đ, category=${income.idCategory}")
+                    }
+                    isInMonth
+                } catch (e: Exception) {
+                    Log.w(TAG, "   ⚠️ Failed to parse date: ${income.date}, error: ${e.message}")
+                    false
+                }
             }
 
+            Log.d(TAG, "   🔢 Filtered incomes: ${incomesForMonth.size} out of ${_listIncome.size} total")
+
             if (incomesForMonth.isEmpty()) {
-                Log.d(TAG, "No incomes found for month: $month")
+                Log.d(TAG, "❌ No incomes found for month: $month")
+                Log.d(TAG, "   💡 Sample data: ${_listIncome.take(2)}")
                 return null
             }
 
@@ -484,12 +557,16 @@ class ExportPdfViewModel @Inject constructor(
                             listIncome = incomes
                         )
                     )
+                    Log.d(TAG, "   📊 Category: ${category?.title} - Total: ${totalAmount}đ, Items: ${incomes.size}")
+                } else {
+                    Log.d(TAG, "   ⚠️ Category ${categoryId} has 0 amount")
                 }
             }
 
+            Log.d(TAG, "✅ Income data ready: ${result.size} categories")
             return result.sortedByDescending { it.totalAmount }
         } catch (e: Exception) {
-            Log.e(TAG, "Error getting income data for month: ${e.message}", e)
+            Log.e(TAG, "❌ Error getting income data for month: ${e.message}", e)
             return null
         }
     }
