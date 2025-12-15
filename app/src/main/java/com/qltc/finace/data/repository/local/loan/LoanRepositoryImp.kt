@@ -30,24 +30,21 @@ class LoanRepositoryImp @Inject constructor(
     override suspend fun getAllLoans(): MutableList<Loan> {
         if (user == null) return mutableListOf()
 
-        val listLoan = mutableListOf<Loan>()
-        db.collection(Fb.Loan)
-            .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                querySnapshot.documents.forEach { document ->
-                    document.toObject(Loan::class.java)?.let { loan ->
-                        loan.idLoan = document.id
-                        listLoan.add(loan)
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e("LoanRepository", "getAllLoans failed: ${e.message}")
-            }
-            .await()
+        return try {
+            val querySnapshot = db.collection(Fb.Loan)
+                .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
+                .get()
+                .await()
 
-        return listLoan
+            querySnapshot.documents.mapNotNull { document ->
+                document.toObject(Loan::class.java)?.apply {
+                    idLoan = document.id
+                }
+            }.toMutableList()
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "getAllLoans failed: ${e.message}")
+            mutableListOf()
+        }
     }
 
     override suspend fun getLoanById(idLoan: String): Loan? {
@@ -87,138 +84,122 @@ class LoanRepositoryImp @Inject constructor(
     override suspend fun getLoansByMonth(month: String): List<Loan> {
         if (user == null) return mutableListOf()
 
-        val listLoan = mutableListOf<Loan>()
-        db.collection(Fb.Loan)
-            .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                for (doc in querySnapshot.documents) {
-                    val loan = doc.toObject(Loan::class.java)
-                    loan?.idLoan = doc.id
-                    if (loan != null && loan.date?.toLocalDate()?.toMonthYearString() == month) {
-                        listLoan.add(loan)
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e("LoanRepository", "getLoansByMonth failed: ${e.message}")
-            }
-            .await()
+        return try {
+            val querySnapshot = db.collection(Fb.Loan)
+                .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
+                .get()
+                .await()
 
-        return listLoan
+            querySnapshot.documents.mapNotNull { doc ->
+                doc.toObject(Loan::class.java)?.apply {
+                    idLoan = doc.id
+                }
+            }.filter { loan ->
+                loan.date?.toLocalDate()?.toMonthYearString() == month
+            }.toMutableList()
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "getLoansByMonth failed: ${e.message}")
+            mutableListOf()
+        }
     }
 
     override suspend fun getLoansByType(loanType: String): List<Loan> {
         if (user == null) return mutableListOf()
 
-        val listLoan = mutableListOf<Loan>()
-        db.collection(Fb.Loan)
-            .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
-            .whereEqualTo(Fb.LoanField.loanType, loanType)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                querySnapshot.documents.forEach { document ->
-                    document.toObject(Loan::class.java)?.let { loan ->
-                        loan.idLoan = document.id
-                        listLoan.add(loan)
-                    }
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e("LoanRepository", "getLoansByType failed: ${e.message}")
-            }
-            .await()
+        return try {
+            val querySnapshot = db.collection(Fb.Loan)
+                .whereEqualTo(Fb.LoanField.idUser, user!!.uid)
+                .whereEqualTo(Fb.LoanField.loanType, loanType)
+                .get()
+                .await()
 
-        return listLoan
+            querySnapshot.documents.mapNotNull { document ->
+                document.toObject(Loan::class.java)?.apply {
+                    idLoan = document.id
+                }
+            }.toMutableList()
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "getLoansByType failed: ${e.message}")
+            mutableListOf()
+        }
     }
 
     override suspend fun insertLoan(loan: Loan): Boolean {
         if (user == null) return false
 
-        var result = false
         loan.idUser = user!!.uid
         loan.paidAmount = loan.paidAmount ?: 0L
 
-        // Thêm loan vào Firestore
-        db.collection(Fb.Loan)
-            .add(loan)
-            .addOnSuccessListener { documentReference ->
-                result = true
-                loan.idLoan = documentReference.id
-                Log.d("LoanRepository", "insertLoan success: ${loan.idLoan}")
-            }
-            .addOnFailureListener { e ->
-                result = false
-                Log.e("LoanRepository", "insertLoan failed: ${e.message}")
-            }
-            .await()
+        return try {
+            // Thêm loan vào Firestore
+            val documentReference = db.collection(Fb.Loan)
+                .add(loan)
+                .await()
 
-        // Tự động tạo Income hoặc Expense tương ứng
-        if (result) {
+            loan.idLoan = documentReference.id
+            Log.d("LoanRepository", "insertLoan success: ${loan.idLoan}")
+
+            // Tự động tạo Income hoặc Expense tương ứng
             createTransactionFromLoan(loan)
-        }
 
-        return result
+            true
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "insertLoan failed: ${e.message}")
+            false
+        }
     }
 
     override suspend fun updateLoan(loan: Loan): Boolean {
         if (user == null || loan.idLoan == null) return false
 
-        var result = false
-        db.collection(Fb.Loan)
-            .document(loan.idLoan!!)
-            .update(
-                mapOf(
-                    "idUser" to loan.idUser,
-                    "loanType" to loan.loanType,
-                    "amount" to loan.amount,
-                    "paidAmount" to loan.paidAmount,
-                    "title" to loan.title,
-                    "note" to loan.note,
-                    "date" to loan.date,
-                    "dueDate" to loan.dueDate,
-                    "status" to loan.status
+        return try {
+            db.collection(Fb.Loan)
+                .document(loan.idLoan!!)
+                .update(
+                    mapOf(
+                        "idUser" to loan.idUser,
+                        "loanType" to loan.loanType,
+                        "amount" to loan.amount,
+                        "paidAmount" to loan.paidAmount,
+                        "title" to loan.title,
+                        "note" to loan.note,
+                        "date" to loan.date,
+                        "dueDate" to loan.dueDate,
+                        "status" to loan.status
+                    )
                 )
-            )
-            .addOnSuccessListener {
-                result = true
-                Log.d("LoanRepository", "updateLoan success")
-            }
-            .addOnFailureListener { e ->
-                result = false
-                Log.e("LoanRepository", "updateLoan failed: ${e.message}")
-            }
-            .await()
+                .await()
 
-        return result
+            Log.d("LoanRepository", "updateLoan success")
+            true
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "updateLoan failed: ${e.message}")
+            false
+        }
     }
 
     override suspend fun deleteLoan(loan: Loan): Boolean {
         if (user == null || loan.idLoan == null) return false
 
-        var result = false
+        return try {
+            // Xóa tất cả payments liên quan trước
+            val payments = getAllPaymentsByLoan(loan.idLoan!!)
+            payments.forEach { payment ->
+                deleteLoanPayment(payment)
+            }
 
-        // Xóa tất cả payments liên quan trước
-        val payments = getAllPaymentsByLoan(loan.idLoan!!)
-        payments.forEach { payment ->
-            deleteLoanPayment(payment)
+            // Sau đó xóa loan
+            db.collection(Fb.Loan)
+                .document(loan.idLoan!!)
+                .delete()
+                .await()
+
+            Log.d("LoanRepository", "deleteLoan success")
+            true
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "deleteLoan failed: ${e.message}")
+            false
         }
-
-        // Sau đó xóa loan
-        db.collection(Fb.Loan)
-            .document(loan.idLoan!!)
-            .delete()
-            .addOnSuccessListener {
-                result = true
-                Log.d("LoanRepository", "deleteLoan success")
-            }
-            .addOnFailureListener { e ->
-                result = false
-                Log.e("LoanRepository", "deleteLoan failed: ${e.message}")
-            }
-            .await()
-
-        return result
     }
 
     // ===== LOAN PAYMENT CRUD =====
@@ -256,42 +237,36 @@ class LoanRepositoryImp @Inject constructor(
     override suspend fun insertLoanPayment(payment: LoanPayment): Boolean {
         if (user == null) return false
 
-        var result = false
         payment.idUser = user!!.uid
 
-        db.collection(Fb.LoanPayment)
-            .add(payment)
-            .addOnSuccessListener {
-                result = true
-                Log.d("LoanRepository", "insertLoanPayment success")
-            }
-            .addOnFailureListener { e ->
-                result = false
-                Log.e("LoanRepository", "insertLoanPayment failed: ${e.message}")
-            }
-            .await()
+        return try {
+            db.collection(Fb.LoanPayment)
+                .add(payment)
+                .await()
 
-        return result
+            Log.d("LoanRepository", "insertLoanPayment success")
+            true
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "insertLoanPayment failed: ${e.message}")
+            false
+        }
     }
 
     override suspend fun deleteLoanPayment(payment: LoanPayment): Boolean {
         if (user == null || payment.idPayment == null) return false
 
-        var result = false
-        db.collection(Fb.LoanPayment)
-            .document(payment.idPayment!!)
-            .delete()
-            .addOnSuccessListener {
-                result = true
-                Log.d("LoanRepository", "deleteLoanPayment success")
-            }
-            .addOnFailureListener { e ->
-                result = false
-                Log.e("LoanRepository", "deleteLoanPayment failed: ${e.message}")
-            }
-            .await()
+        return try {
+            db.collection(Fb.LoanPayment)
+                .document(payment.idPayment!!)
+                .delete()
+                .await()
 
-        return result
+            Log.d("LoanRepository", "deleteLoanPayment success")
+            true
+        } catch (e: Exception) {
+            Log.e("LoanRepository", "deleteLoanPayment failed: ${e.message}")
+            false
+        }
     }
 
     // ===== BUSINESS LOGIC =====
