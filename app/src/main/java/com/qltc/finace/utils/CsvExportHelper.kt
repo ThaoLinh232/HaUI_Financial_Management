@@ -134,15 +134,15 @@ class CsvExportHelper(private val context: Context) {
         // Thống kê tổng quan (nếu là TYPE_BOTH)
         if (reportType == TYPE_BOTH) {
             csv.appendLine(escapeCsv("THỐNG KÊ TỔNG QUAN"))
-            csv.appendLine("${escapeCsv("Thông tin")},${escapeCsv("Số tiền (VND)")}")
+            csv.appendLine("${escapeCsv("Thông tin")};${escapeCsv("Số tiền (VND)")}")
 
             val totalExpense = expenseData?.sumOf { it.totalAmount } ?: 0
             val totalIncome = incomeData?.sumOf { it.totalAmount } ?: 0
             val balance = totalIncome - totalExpense
 
-            csv.appendLine("${escapeCsv("Tổng chi tiêu")},${formatNumber(totalExpense)}")
-            csv.appendLine("${escapeCsv("Tổng thu nhập")},${formatNumber(totalIncome)}")
-            csv.appendLine("${escapeCsv("Số dư")},${formatNumber(balance)}")
+            csv.appendLine("${escapeCsv("Tổng chi tiêu")};${formatNumber(totalExpense)}")
+            csv.appendLine("${escapeCsv("Tổng thu nhập")};${formatNumber(totalIncome)}")
+            csv.appendLine("${escapeCsv("Số dư")};${formatNumber(balance)}")
             csv.appendLine() // Dòng trống
 
         }
@@ -175,16 +175,16 @@ class CsvExportHelper(private val context: Context) {
         csv.appendLine()
 
         // Tổng hợp theo danh mục
-        csv.appendLine("STT,${escapeCsv("Danh mục")},${escapeCsv("Số giao dịch")},${escapeCsv("Tổng chi (VND)")}")
+        csv.appendLine("STT;${escapeCsv("Danh mục")};${escapeCsv("Số giao dịch")};${escapeCsv("Tổng chi (VND)")}")
         
         expenseData.forEachIndexed { index, category ->
             val transactionCount = category.listExpense?.size ?: 0
 
             csv.appendLine(
-                "${index + 1}," +
-                "${escapeCsv(category.category?.title ?: "Không tên")}," +
-                "$transactionCount," +
-                "${formatNumberWithComma(category.totalAmount)},"
+                "${index + 1};" +
+                "${escapeCsv(category.category?.title ?: "Không tên")};" +
+                "$transactionCount;" +
+                "${formatNumberWithComma(category.totalAmount)}"
             )
         }
 
@@ -194,7 +194,7 @@ class CsvExportHelper(private val context: Context) {
 
         csv.appendLine(escapeCsv("CHI TIẾT CÁC GIAO DỊCH CHI TIÊU"))
 
-        csv.appendLine("STT,${escapeCsv("Danh mục")},${escapeCsv("Ngày")},${escapeCsv("Ghi chú")},${escapeCsv("Số tiền (VND)")}")
+        csv.appendLine("STT;${escapeCsv("Danh mục")},+;${escapeCsv("Ngày")};${escapeCsv("Ghi chú")};${escapeCsv("Số tiền (VND)")}")
 
         var stt = 1
         expenseData.forEach { category ->
@@ -207,10 +207,10 @@ class CsvExportHelper(private val context: Context) {
                 }
                 
                 csv.appendLine(
-                    "$stt," +
-                    "${escapeCsv(category.category?.title ?: "Không tên")}," +
-                    "${escapeCsv(dateString)}," +
-                    "${escapeCsv(expense.note ?: "")}," +
+                    "$stt;" +
+                    "${escapeCsv(category.category?.title ?: "Không tên")};" +
+                    "${escapeCsv(dateString)};" +
+                    "${escapeCsv(expense.note ?: "")};" +
                     "${formatNumber(expense.expense ?: 0)}"
                 )
                 stt++
@@ -235,15 +235,15 @@ class CsvExportHelper(private val context: Context) {
         csv.appendLine()
 
         // Tổng hợp theo danh mục
-        csv.appendLine("STT,${escapeCsv("Danh mục")},${escapeCsv("Số giao dịch")},${escapeCsv("Tổng thu (VND)")}")
+        csv.appendLine("STT;${escapeCsv("Danh mục")};${escapeCsv("Số giao dịch")};${escapeCsv("Tổng thu (VND)")}")
         
         incomeData.forEachIndexed { index, category ->
             val transactionCount = category.listIncome?.size ?: 0
 
             csv.appendLine(
-                "${index + 1}," +
-                "${escapeCsv(category.category?.title ?: "Không tên")}," +
-                "$transactionCount," +
+                "${index + 1};" +
+                "${escapeCsv(category.category?.title ?: "Không tên")};" +
+                "$transactionCount;" +
                 "${formatNumber(category.totalAmount)}"
             )
         }
@@ -252,7 +252,7 @@ class CsvExportHelper(private val context: Context) {
 
         // Chi tiết từng giao dịch
         csv.appendLine(escapeCsv("CHI TIẾT CÁC GIAO DỊCH THU NHẬP"))
-        csv.appendLine("STT,${escapeCsv("Danh mục")},${escapeCsv("Ngày")},${escapeCsv("Ghi chú")},${escapeCsv("Số tiền (VND)")}")
+        csv.appendLine("STT;${escapeCsv("Danh mục")};${escapeCsv("Ngày")};${escapeCsv("Ghi chú")};${escapeCsv("Số tiền (VND)")}")
         
         var stt = 1
         incomeData.forEach { category ->
@@ -265,10 +265,10 @@ class CsvExportHelper(private val context: Context) {
                 }
                 
                 csv.appendLine(
-                    "$stt," +
-                    "${escapeCsv(category.category?.title ?: "Không tên")}," +
-                    "${escapeCsv(dateString)}," +
-                    "${escapeCsv(income.note ?: "")}," +
+                    "$stt;" +
+                    "${escapeCsv(category.category?.title ?: "Không tên")};" +
+                    "${escapeCsv(dateString)};" +
+                    "${escapeCsv(income.note ?: "")};" +
                     "${formatNumberWithComma(income.income ?: 0)}"
                 )
                 stt++
